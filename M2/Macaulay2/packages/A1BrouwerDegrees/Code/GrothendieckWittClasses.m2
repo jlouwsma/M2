@@ -39,7 +39,7 @@ isWellDefined (Matrix) := Boolean => M -> (
 	);
 
     -- Returns false if the matrix represents a degenerate form
-    if isDegenerate(M) then (
+    if (isDegenerate(M) and numRows(M) > 0) then (
 	<< "-- Defining matrix is degenerate" << endl;
 	return false;
         );

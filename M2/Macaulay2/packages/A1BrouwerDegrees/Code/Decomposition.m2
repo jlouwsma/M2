@@ -275,6 +275,10 @@ sumDecompositionVerbose = method()
 sumDecompositionVerbose (GrothendieckWittClass) := (GrothendieckWittClass, String) => beta ->(
     -- Get base field of beta
     kk := baseField(beta);
+
+    if numRows(beta.matrix) == 0 then(
+	return (gwClass(diagonalMatrix(kk,{})),"empty form")
+	);
     
     outputString := "";
     

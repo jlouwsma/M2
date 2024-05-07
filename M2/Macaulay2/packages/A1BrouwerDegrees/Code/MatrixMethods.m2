@@ -23,7 +23,13 @@ isSquareAndSymmetric (Matrix) := Boolean => M -> (
 
 isDegenerate = method()
 isDegenerate (Matrix) := Boolean => M ->(
-    det(M) == 0
+
+    if numRows(M) == 0 then(
+	return true
+	)
+    else(
+	return det(M) == 0
+	);
     )
 
 isNondegenerate = method()
