@@ -15,7 +15,7 @@ diagonalClass (GrothendieckWittClass) := (GrothendieckWittClass) => (beta) -> (
 
     -- The diagonal form gets cached in the GWclass type
     beta.cache.diagonalClass = gwClass(diagonalClassOfBetaMatrix);
-    return gwClass(diagonalClassOfBetaMatrix);
+    gwClass(diagonalClassOfBetaMatrix)
     );
 
 -- Input: A Grothendieck-Witt class beta
@@ -31,7 +31,7 @@ diagonalEntries (GrothendieckWittClass) := (List) => (beta) -> (
     for i from 0 to (n-1) do(
 	L = append(L, M_(i,i));
 	);
-    return L
+    L
     );
     
     
