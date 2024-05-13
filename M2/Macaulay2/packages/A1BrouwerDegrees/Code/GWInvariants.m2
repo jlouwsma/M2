@@ -17,7 +17,7 @@ numNonzeroDiagEntries (Matrix) := (Matrix) => (A) -> (
             nonzeroDiagEntries = nonzeroDiagEntries + 1;
             );
         );
-    return(nonzeroDiagEntries);
+    nonzeroDiagEntries
     )
 
 -- Input: A diagonal matrix over QQ or RR
@@ -30,7 +30,7 @@ numPosDiagEntries (Matrix) := (Matrix) => (A) -> (
         A = congruenceDiagonalize(A);
         );
     k := ring A;
-    if not (k === RR or instance(k,RealField) or k === QQ) then(
+    if not (instance(k,RealField) or k === QQ) then(
         error "Only implemented over QQ and RR";
         );
     posDiagEntries := 0;
@@ -39,7 +39,7 @@ numPosDiagEntries (Matrix) := (Matrix) => (A) -> (
             posDiagEntries = posDiagEntries + 1;
             );
         );
-    return(posDiagEntries);
+    posDiagEntries
     )
 
 -- Input: A diagonal matrix over QQ or RR
@@ -52,7 +52,7 @@ numNegDiagEntries (Matrix) := (Matrix) => (A) -> (
         A = congruenceDiagonalize(A);
         );
     k := ring A;
-    if not (k === RR or instance(k,RealField) or k === QQ) then(
+    if not (instance(k,RealField) or k === QQ) then(
         error "Only implemented over QQ and RR";
         );
     negDiagEntries := 0;
@@ -61,7 +61,7 @@ numNegDiagEntries (Matrix) := (Matrix) => (A) -> (
             negDiagEntries = negDiagEntries + 1;
             );
         );
-    return(negDiagEntries);
+    negDiagEntries
     )
 
 -- Input: A Grothendieck-Witt class beta defined over QQ or RR
@@ -70,7 +70,7 @@ numNegDiagEntries (Matrix) := (Matrix) => (A) -> (
 
 numPosEntries = method()
 numPosEntries (GrothendieckWittClass) := ZZ => beta ->(
-    return(numPosDiagEntries(beta.matrix));
+    numPosDiagEntries(beta.matrix)
     );
 
 -- Input: A Grothendieck-Witt class beta defined over QQ or RR
@@ -79,7 +79,7 @@ numPosEntries (GrothendieckWittClass) := ZZ => beta ->(
 
 numNegEntries = method()
 numNegEntries (GrothendieckWittClass) := ZZ => beta ->(
-    return(numNegDiagEntries(beta.matrix));
+    numNegDiagEntries(beta.matrix)
     );
 
 -- Input: A Grothendieck-Witt class beta defined over QQ or RR
@@ -88,7 +88,7 @@ numNegEntries (GrothendieckWittClass) := ZZ => beta ->(
 signature = method()
 signature (GrothendieckWittClass) := ZZ => (beta) ->(
     sig := numPosEntries(beta) - numNegEntries(beta);
-    return sig
+    sig
     );
 
 ---------------------------
@@ -104,7 +104,7 @@ integralDiscriminant (GrothendieckWittClass) := (ZZ) => (beta) -> (
     rankForm:= numRows(B);
     kk:= ring B;
     
-    if (not (kk === QQ)) then (error "GrothendieckWittClass is not over QQ");
+    if not kk === QQ then (error "GrothendieckWittClass is not over QQ");
     
     -- Take an integral diagonal representative for beta
     gamma := diagonalClass(beta);
@@ -115,7 +115,7 @@ integralDiscriminant (GrothendieckWittClass) := (ZZ) => (beta) -> (
 	discrimForm = discrimForm * (G_(i,i));
 	);
     
-    return sub(squarefreePart(discrimForm),ZZ);
+    sub(squarefreePart(discrimForm),ZZ)
     );
 
 -- Input: A Grothendieck-Witt class beta defined over QQ
@@ -138,7 +138,7 @@ relevantPrimes (GrothendieckWittClass) := List => (beta) -> (
 	L = unique(L | primeFactors(sub(x,ZZ)));
 	);
     
-    return L
+    L
     );
 
 -- Two Q forms over Q_p are isomorphic if they have same rank, same discriminant, and same Hasse-Witt invariant   
@@ -170,13 +170,12 @@ HasseWittInvariant (List, ZZ) := ZZ => (L,p) -> (
 	       );
 	   );
        
-       return a;
+       a
     );
 
 HasseWittInvariant(GrothendieckWittClass, ZZ) := ZZ => (beta,p) -> (
     kk := baseField beta;
     if not (kk === QQ) then error "method is only implemented over the rationals";
     if not isPrime(p) then error "second argument must be a prime number";
-    return HasseWittInvariant(diagonalEntries(diagonalClass(beta)),p)
-    
+    HasseWittInvariant(diagonalEntries(diagonalClass(beta)),p)
     )
