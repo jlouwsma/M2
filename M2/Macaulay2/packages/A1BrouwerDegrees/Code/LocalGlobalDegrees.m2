@@ -15,7 +15,7 @@ globalA1Degree (List) := (GrothendieckWittClass) => (Endo) -> (
     -- Get the underlying field, assert it is a field
     kk := coefficientRing(ring(Endo#0)); 
     
-    if isField(kk) == false then(
+    if not isField(kk) then(
 	kk = toField(kk);
 	);
     
@@ -29,13 +29,13 @@ globalA1Degree (List) := (GrothendieckWittClass) => (Endo) -> (
     if not #(gens S) == n then error "Error: the number of variables does not match the number of polynomials.";
     
     -- If the field is CC, just output gwClass of an identity matrix of rank = rankAlgebra
-    if (kk === CC or instance(kk,ComplexField)) then(
+    if instance(kk,ComplexField) then(
     	rankAlgebra:=rankGlobalAlgebra(Endo);
     	return gwClass(matrix(mutableIdentity(CC,rankAlgebra)));
-    );
+        );
     
     -- If the field is RR, ask the user to run it over QQ instead, then simplify over RR
-    if (kk === RR or instance(kk,RealField)) then error "Error: globalA1Degree method does not work over the reals. Instead, define the polynomials over QQ to output a GrothendieckWittClass. Then extract the matrix, base change it to RR, and then run sumDecomposition().";    
+    if instance(kk,RealField) then error "Error: globalA1Degree method does not work over the reals. Instead, define the polynomials over QQ to output a GrothendieckWittClass. Then extract the matrix, base change it to RR, and then run sumDecomposition().";    
     
     -- Create internal rings/matrices
     
@@ -61,8 +61,8 @@ globalA1Degree (List) := (GrothendieckWittClass) => (Endo) -> (
         numeratorD := ((map(R,S,targetList1))(Endo_i)-(map(R,S,targetList2))(Endo_i)); 
         -- divide it by X_j - Y_j, Note Macaulay2 is 0-indexed hence the difference in notation. 
 	    D_(i,j)= numeratorD/((X_(j+1))_R-(Y_(j+1))_R); 
-	); 
-    );
+	    ); 
+        );
     
     -- Set up the local variables bezDet and bezDetR
     bezDet:="";
@@ -71,14 +71,14 @@ globalA1Degree (List) := (GrothendieckWittClass) => (Endo) -> (
 
     -- The determinant of D is interpreted as living in Frac(k[x_1..x_n]),
     -- so we can try to lift it to k[x_1..x_n]           
-    if liftable(det(D),R) == true then(
+    if liftable(det(D),R) then(
 	bezDetR = lift(det(D),R);
 	);
     
     -- In some computations, applying lift(-,R) won't work. So we instead lift
     -- the numerator and then divide by a lift of the denominator (which will be
     -- a scalar) to the coefficient ring k
-    if not liftable(det(D),R) == true then(
+    if not liftable(det(D),R) then(
 	bezDet = lift(numerator(det(D)), R) / lift(denominator(det(D)),coefficientRing R);
     	bezDetR = lift(bezDet, R);
 	);
@@ -128,10 +128,9 @@ globalA1Degree (List) := (GrothendieckWittClass) => (Endo) -> (
     for i from 0 to m - 1 do (
         for j from 0 to m - 1 do (
             B_(i,j) = phi0(coefficient((sBXProm_(0,i)**sBYProm_(0,j))_(0,0), bezDetRed));
+            );
         );
-    );
-    return gwClass(matrix(B));
-
+    gwClass(matrix(B)
     );
 
 
@@ -154,7 +153,7 @@ localA1Degree (List, Ideal) := (GrothendieckWittClass) => (Endo,p) -> (
     kk := coefficientRing(ring(Endo#0)); 
     
        
-    if isField(kk) == false then(
+    if not isField(kk) then(
 	kk = toField(kk);
 	);
 
@@ -175,12 +174,12 @@ localA1Degree (List, Ideal) := (GrothendieckWittClass) => (Endo,p) -> (
     if not #(gens S) == n then error "Error: the number of variables does not match the number of polynomials.";
     
     -- If the field is CC, just output gwClass of an identity matrix of rank = localFormRank
-    if (kk === CC or instance(kk,ComplexField)) then(
+    if instance(kk,ComplexField) then(
 	return gwClass(matrix(mutableIdentity(CC,localFormRank)))
-    );
+        );
     
     -- If the field is RR, ask the user to run it over QQ instead, then simplify over RR
-    if (kk === RR or instance(kk,RealField)) then error "Error: localA1Degree method does not work over the reals. Instead, define the polynomials over QQ to output a GrothendieckWittClass. Then extract the matrix, base change it to RR, and then run sumDecomposition().";
+    if instance(kk,RealField) then error "Error: localA1Degree method does not work over the reals. Instead, define the polynomials over QQ to output a GrothendieckWittClass. Then extract the matrix, base change it to RR, and then run sumDecomposition().";
     
     
     -- Create internal rings/matrices
@@ -208,8 +207,8 @@ localA1Degree (List, Ideal) := (GrothendieckWittClass) => (Endo,p) -> (
         numeratorD := ((map(R,S,targetList1))(Endo_i)-(map(R,S,targetList2))(Endo_i)); 
         -- divide it by X_j - Y_j, Note Macaulay2 is 0-indexed hence the difference in notation. 
 	    D_(i,j)= numeratorD/((X_(j+1))_R-(Y_(j+1))_R); 
-	); 
-    );
+	    ); 
+        );
     
     -- Set up the local variables bezDet and bezDetR
     bezDet := "";
@@ -217,14 +216,14 @@ localA1Degree (List, Ideal) := (GrothendieckWittClass) => (Endo,p) -> (
     
     -- The determinant of D is interpreted as living in Frac(k[x_1..x_n]),
     -- so we can try to lift it to k[x_1..x_n]           
-    if liftable(det(D),R) == true then(
+    if liftable(det(D),R) then(
 	bezDetR = lift(det(D),R);
 	);
     
     -- In some computations, applying lift(-,R) won't work. So we instead lift
     -- the numerator and then divide by a lift of the denominator (which will be
     -- a scalar) to the coefficient ring k
-    if not liftable(det(D),R) == true then(
+    if not liftable(det(D),R) then(
 	bezDet = lift(numerator(det(D)), R) / lift(denominator(det(D)),coefficientRing R);
     	bezDetR = lift(bezDet, R);
 	);    
@@ -271,9 +270,9 @@ localA1Degree (List, Ideal) := (GrothendieckWittClass) => (Endo,p) -> (
     for i from 0 to m-1 do (
         for j from 0 to m-1 do (
             B_(i,j)=phi0(coefficient((sBXProm_i**sBYProm_j)_(0,0), bezDetRed));
+            );
         );
-    );
-    return gwClass(matrix(B));
+    gwClass(matrix(B)
     );
 
 
