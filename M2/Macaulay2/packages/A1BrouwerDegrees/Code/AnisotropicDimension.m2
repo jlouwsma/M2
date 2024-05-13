@@ -24,7 +24,7 @@ isHyperbolicQp (GrothendieckWittClass, ZZ) := Boolean => (beta, p) ->(
     d := (-1)^(rankForm*(rankForm-1)/2) *integralDiscriminant(beta);
     
     -- If this discriminant is not a square in Q_p then return false
-    if (isPadicSquare(d,p)==false) then return false;
+    if not isPadicSquare(d,p) then return false;
     
     -- At this stage, the rank and discriminant of our beta agrees with that of a hyperbolic form,
     -- so by e.g. Lam V.3.25 it suffices to check if their Hasse-Witt invariants agree
@@ -35,7 +35,7 @@ isHyperbolicQp (GrothendieckWittClass, ZZ) := Boolean => (beta, p) ->(
 	-- The Hasse-Witt invariant of mH:
 	HasseWittHyperbolicForm := (HilbertSymbol(-1,-1,p))^(m*(m - 1)/2);
 	HasseWittBeta := HasseWittInvariant(beta,p);
-	return (HasseWittHyperbolicForm == HasseWittBeta)
+	HasseWittHyperbolicForm == HasseWittBeta
 	);
     );
 
@@ -112,7 +112,7 @@ anisotropicDimensionQQ (GrothendieckWittClass) := ZZ => (beta) -> (
 	
 	);
     
-    return max ListOfLocalAnistropicDimensions;
+    max ListOfLocalAnistropicDimensions
     );
 
 -- Input: A symmetric matrix representing a quadratic form or a GrothendieckWittClass; over QQ, RR, CC, or a finite field of characteristic not 2
@@ -122,7 +122,7 @@ anisotropicDimension = method()
 anisotropicDimension (Matrix) := (ZZ) => (A) -> (
     k := ring A;
     -- Ensure base field is supported
-    if not (k === CC or instance(k,ComplexField) or k === RR or instance(k,RealField) or k === QQ or (instance(k, GaloisField) and k.char != 2)) then (
+    if not (instance(k,ComplexField) or instance(k,RealField) or k === QQ or (instance(k, GaloisField) and k.char != 2)) then (
         error "Base field not supported; only implemented over QQ, RR, CC, and finite fields of characteristic not 2";
         );
     -- Ensure matrix is symmetric
@@ -131,11 +131,11 @@ anisotropicDimension (Matrix) := (ZZ) => (A) -> (
 	);
     diagA := congruenceDiagonalize(A);
     -- Over CC, the anisotropic dimension is 0 or 1 depending on the parity of number of nonzero diagonal entries
-    if (k === CC or instance(k,ComplexField)) then (
+    if instance(k,ComplexField) then (
         return (numNonzeroDiagEntries(diagA)%2);
         )
     --Over RR, the anisotropic dimension is the difference between the number of positive diagonal entries and the number of negative diagonal entries
-    else if (k === RR or instance(k,RealField)) then (
+    else if instance(k,RealField) then (
         return (abs(numPosDiagEntries(diagA) - numNegDiagEntries(diagA)));
         )
     -- Over QQ, call anisotropicDimensionQQ
@@ -159,7 +159,7 @@ anisotropicDimension (Matrix) := (ZZ) => (A) -> (
     );
 
 anisotropicDimension (GrothendieckWittClass) := (ZZ) => (alpha) -> (
-    return(anisotropicDimension(alpha.matrix));
+    anisotropicDimension(alpha.matrix)
     );
 
 
@@ -169,5 +169,5 @@ anisotropicDimension (GrothendieckWittClass) := (ZZ) => (alpha) -> (
 WittIndex = method()
 WittIndex (GrothendieckWittClass) := (ZZ) => (alpha) -> (
     n := numRows(alpha.matrix);
-    return sub((n - anisotropicDimension(alpha))/2,ZZ);
+    sub((n - anisotropicDimension(alpha))/2,ZZ)
     );
