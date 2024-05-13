@@ -35,7 +35,7 @@ isHyperbolicQp (GrothendieckWittClass, ZZ) := Boolean => (beta, p) ->(
 	-- The Hasse-Witt invariant of mH:
 	HasseWittHyperbolicForm := (HilbertSymbol(-1,-1,p))^(m*(m - 1)/2);
 	HasseWittBeta := HasseWittInvariant(beta,p);
-	HasseWittHyperbolicForm == HasseWittBeta
+	return (HasseWittHyperbolicForm == HasseWittBeta);
 	);
     );
 
