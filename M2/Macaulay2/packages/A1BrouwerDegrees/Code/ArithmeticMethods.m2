@@ -43,7 +43,7 @@ primeFactors (ZZ) := List => (n) -> (
 	return {};
 	);
     
-    return sort keys(hashTable(factor(abs(n))))
+    sort keys(hashTable(factor(abs(n))))
     );
 
 primeFactors (QQ) := List => (n) -> (
@@ -51,7 +51,7 @@ primeFactors (QQ) := List => (n) -> (
 	error "tried to take prime factors of a rational";
 	);
     
-    return primeFactors(sub(n,ZZ));   
+    primeFactors(sub(n,ZZ))   
     )
 
 -- Input: An integer n and a prime number p
@@ -68,7 +68,7 @@ padicValuation (ZZ, ZZ) := (ZZ) => (n, p) -> (
     else (
 	a = 0;
 	);
-    return a;
+    a
     );
 
 -- Input: A rational number q and a prime number p
@@ -76,8 +76,8 @@ padicValuation (ZZ, ZZ) := (ZZ) => (n, p) -> (
 padicValuation (QQ, ZZ) := (ZZ) => (q, p) -> (
     num := numerator(q);
     denom := denominator(q);
-    return (padicValuation(num,p) - padicValuation(denom,p));
-);
+    (padicValuation(num,p) - padicValuation(denom,p))
+    );
 
 -- Input: An element a of a finite field
 -- Output: True if a is a square, false otherwise
@@ -112,7 +112,7 @@ squareSymbol(ZZ, ZZ) := (ZZ) => (a, p) -> (
     else (
 	ans = 0;
 	);
-    return ans;
+    ans
     );
 
 ------------------------------
@@ -126,44 +126,44 @@ equalUptoPadicSquare (ZZ, ZZ, ZZ) := (Boolean) => (a, b, p) -> (
     
 -- One has to handle the cases when p is odd, and p = 2 differently
 
-if (odd p) then (
-    -- p is odd and we need to check that the powers of p have the same parity, and the units
-    -- differ by a square in GF(p)
-    a1 := squarefreePart(a);
-    b1 := squarefreePart(b);
-    if (padicValuation(a1, p ) != padicValuation(b1, p)) then (
-	return false;
+    if (odd p) then (
+        -- p is odd and we need to check that the powers of p have the same parity, and the units
+        -- differ by a square in GF(p)
+        a1 := squarefreePart(a);
+        b1 := squarefreePart(b);
+        if (padicValuation(a1, p ) != padicValuation(b1, p)) then (
+	    return false;
+            )
+        else (
+    	    -- c1 will be an integer prime to p
+	    c1 := squarefreePart(a1*b1);
+	    x := getSymbol "x";
+	    return (legendreBoolean( sub(c1, GF(p, Variable => x)))); 
+	    );
         )
     else (
-    	-- c1 will be an integer prime to p
-	c1 := squarefreePart(a1*b1);
-	x := getSymbol "x";
-	return (legendreBoolean( sub(c1, GF(p, Variable => x)))); 
-	);
-    )
-else (
-    -- Case when p=2.  Then we have to check that the powers of p have the same parity, and 
-    -- that the units agree mod 8.
-    a1 = squarefreePart(a);
-    b1 = squarefreePart(b);
-    if (padicValuation(a1, p ) != padicValuation(b1, p)) then (
-	return false;
-        )
-    else (
-    	-- c1 will be an integer prime to p
-	c1 = squarefreePart(a1*b1);
-	c1 = c1 % 8;
-	-- if c1 =1, then the two odd units are congruent mod 8, and are squares in Q2
-	return (c1 == 1); 
-	);
+        -- Case when p=2.  Then we have to check that the powers of p have the same parity, and 
+        -- that the units agree mod 8.
+        a1 = squarefreePart(a);
+        b1 = squarefreePart(b);
+        if (padicValuation(a1, p ) != padicValuation(b1, p)) then (
+	    return false;
+            )
+        else (
+    	    -- c1 will be an integer prime to p
+	    c1 = squarefreePart(a1*b1);
+	    c1 = c1 % 8;
+	    -- if c1 =1, then the two odd units are congruent mod 8, and are squares in Q2
+	    return (c1 == 1); 
+	    );
+        );
     );
-  );
 
 -- Boolean to check if an integer a is a p-adic square
 
 isPadicSquare = method()
 isPadicSquare (ZZ, ZZ) := (Boolean) => (a, p) -> (
-    return equalUptoPadicSquare(a,1,p)
+    equalUptoPadicSquare(a,1,p)
     );
 
 ------------------------------
@@ -177,7 +177,7 @@ localAlgebraBasis = method()
 localAlgebraBasis (List, Ideal) := (List) => (L,p) -> (
     
     -- Determine whether or not an ideal is prime
-    if isPrime(p) == false then (
+    if not isPrime(p) then (
         error "Error: ideal is not prime"
         );
     
@@ -195,7 +195,7 @@ localAlgebraBasis (List, Ideal) := (List) => (L,p) -> (
     J := I:saturate(I,p);
     A := R/J;
     B := basis(A);
-    return flatten(entries(B))
+    flatten(entries(B))
     )
 
 -- Input: A zero-dimensional ideal (f_1,..f_n) < k[x_1..x_n].
@@ -206,7 +206,7 @@ rankGlobalAlgebra (List) := (ZZ) => (Endo) -> (
     
     -- Get the underlying field    
     kk := coefficientRing(ring(Endo#0));    
-    if isField(kk) == false then(
+    if not isField(kk) then(
     	kk = toField(kk);
     	);
     
@@ -219,6 +219,6 @@ rankGlobalAlgebra (List) := (ZZ) => (Endo) -> (
 	);
     
     -- Get the rank of S/ideal(Endo) as a kk-vector space
-    return numColumns(basis(S/ideal(Endo)));   
+    numColumns(basis(S/ideal(Endo)));   
     )
 
