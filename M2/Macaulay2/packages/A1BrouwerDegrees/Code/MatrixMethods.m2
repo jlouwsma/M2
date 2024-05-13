@@ -25,7 +25,7 @@ isDegenerate = method()
 isDegenerate (Matrix) := Boolean => M ->(
 
     if numRows(M) == 0 then(
-	return true
+	return false
 	)
     else(
 	return det(M) == 0
