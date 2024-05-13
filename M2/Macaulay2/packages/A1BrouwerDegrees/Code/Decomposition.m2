@@ -48,7 +48,7 @@ QQanisotropicDimension3 (GrothendieckWittClass) := (GrothendieckWittClass) => be
     alpha := chineseRemainder(S1 | S2, L1 |L2);
     a := squarefreePart(alpha);
     
-    return diagonalForm(QQ,a);
+    diagonalForm(QQ,a)
 
     );
 
@@ -151,7 +151,7 @@ QQanisotropicDimension2 (GrothendieckWittClass) := (GrothendieckWittClass) => be
     for j from 0 to (r-1) do(
 	alpha = alpha * ((L_j)^(sub(X_(j,0),ZZ)));
 	);
-    return diagonalForm(QQ,(alpha, -alpha*d))
+    diagonalForm(QQ,(alpha, -alpha*d))
     
    );
 
@@ -197,7 +197,7 @@ QQanisotropicPart (GrothendieckWittClass) := (GrothendieckWittClass) => (beta) -
 	outputForm = gwAdd(outputForm, diagonalForm(QQ,(integralDiscriminant(beta))));
 	);
     
-    return outputForm;
+    outputForm
     
     
     );
@@ -209,7 +209,7 @@ anisotropicPart = method()
 anisotropicPart (Matrix) := (Matrix) => (A) -> (
     k := ring A;
     -- Ensure base field is supported
-    if not (k === CC or instance(k,ComplexField) or k === RR or instance(k,RealField) or k === QQ or (instance(k, GaloisField) and k.char != 2)) then (
+    if not (instance(k,ComplexField) or instance(k,RealField) or k === QQ or (instance(k, GaloisField) and k.char != 2)) then (
         error "Base field not supported; only implemented over QQ, RR, CC, and finite fields of characteristic not 2";
         );
     -- Ensure underlying matrix is symmetric
@@ -218,7 +218,7 @@ anisotropicPart (Matrix) := (Matrix) => (A) -> (
 	);
     diagA := congruenceDiagonalize(A);
     -- Over CC, the anisotropic part is either the rank 0 form or the rank 1 form, depending on the anisotropic dimension
-    if (k === CC or instance(k,ComplexField)) then (
+    if instance(k,ComplexField) then (
         if (anisotropicDimension(A)==0) then (
             return (diagonalMatrix(CC,{}));
             )
@@ -227,7 +227,7 @@ anisotropicPart (Matrix) := (Matrix) => (A) -> (
             );
         )
     --Over RR, the anisotropic part consists of the positive entries in excess of the number of negative entries, or vice versa
-    else if (k === RR or instance(k,RealField)) then (
+    else if instance(k,RealField) then (
         posEntries := numPosDiagEntries(diagA);
         negEntries := numNegDiagEntries(diagA);
         if (posEntries > negEntries) then (
@@ -297,11 +297,11 @@ sumDecompositionVerbose (GrothendieckWittClass) := (GrothendieckWittClass, Strin
         D := diagonalEntries(alpha);
         for i from 0 to (length(D)-1) do (
 	    outputString = outputString | "+ <" | toString(D_i) | ">";
-    )
+            )
 	);
     
     -- Return a simplified form of beta
-    return (gwAdd(alpha,hyperbolicPart),outputString)
+    gwAdd(alpha,hyperbolicPart),outputString)
     )    
 
 -- Input: A Grothendieck-Witt class beta over a field k
@@ -310,7 +310,7 @@ sumDecompositionVerbose (GrothendieckWittClass) := (GrothendieckWittClass, Strin
 sumDecomposition = method()
 sumDecomposition (GrothendieckWittClass) := (GrothendieckWittClass) => beta -> (
     beta.cache.diagonalClass = (sumDecompositionVerbose(beta))_0;
-    return (sumDecompositionVerbose(beta))_0
+    (sumDecompositionVerbose(beta))_0
 );
 
 -- Input: A Grothendieck-Witt class beta over a field k
@@ -318,7 +318,7 @@ sumDecomposition (GrothendieckWittClass) := (GrothendieckWittClass) => beta -> (
 
 sumDecompositionString = method()
 sumDecompositionString (GrothendieckWittClass) := (String) => beta -> (
-    return (sumDecompositionVerbose(beta))_1
+    (sumDecompositionVerbose(beta))_1
 );
 
 
