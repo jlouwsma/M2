@@ -301,7 +301,7 @@ sumDecompositionVerbose (GrothendieckWittClass) := (GrothendieckWittClass, Strin
 	);
     
     -- Return a simplified form of beta
-    gwAdd(alpha,hyperbolicPart),outputString)
+    return (gwAdd(alpha,hyperbolicPart),outputString)
     )    
 
 -- Input: A Grothendieck-Witt class beta over a field k
