@@ -272,7 +272,7 @@ localA1Degree (List, Ideal) := (GrothendieckWittClass) => (Endo,p) -> (
             B_(i,j)=phi0(coefficient((sBXProm_i**sBYProm_j)_(0,0), bezDetRed));
             );
         );
-    gwClass(matrix(B)
+    gwClass(matrix(B))
     );
 
 
