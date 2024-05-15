@@ -161,7 +161,8 @@ QQanisotropicPart (GrothendieckWittClass) := (GrothendieckWittClass) => (beta) -
     
     -- Initialize an empty quadratic form
     outputForm := diagonalForm(QQ,());    
-    
+    alpha := 1;
+
     while anisotropicDimension(beta) >= 4 do(
 	outputForm = gwAdd(outputForm,QQanisotropicDimension4(beta));
 	alpha = ((QQanisotropicDimension4(beta)).matrix)_(0,0);	
