@@ -1,4 +1,3 @@
-
 -- Input: A form 1 over QQ of anisotropic dimension d >= 4
 -- Output: A form < a > so that q + < a > has anisotropic dimension d - 1
 
@@ -28,9 +27,9 @@ QQanisotropicDimension3 (GrothendieckWittClass) := (GrothendieckWittClass) => be
     d := integralDiscriminant(beta);
     
     -- Build lists of primes where the p-adic valuation of the discriminant is even or is odd
-    L1 := {};
+    L1 := {1};
     L2 := {};
-    S1 := {};
+    S1 := {1};
     S2 := {};
     for p in relevantPrimes(beta) do(
 	if odd padicValuation(d,p) then(
@@ -48,21 +47,18 @@ QQanisotropicDimension3 (GrothendieckWittClass) := (GrothendieckWittClass) => be
     alpha := chineseRemainder(S1 | S2, L1 |L2);
     a := squarefreePart(alpha);
     
-    return diagonalForm(QQ,a);
-
+    diagonalForm(QQ,a)
     );
 
 -- Constructs the anisotropic part of a form with anisotropic dimension 2
--- 
 QQanisotropicDimension2 = method()
 QQanisotropicDimension2 (GrothendieckWittClass) := (GrothendieckWittClass) => beta ->(
     n := numRows beta.matrix;
 
     -- Shortcut: if the form has anisotropic dimension 2 and the form is dimension 2, return the form itself
-    -- if (n==2) then(
-    -- 	return beta;
-    -- 	);
-        
+    if (n==2) then(
+        return beta
+     	);    
     
     -- Step 1: We want the Witt index to be 0 mod 4 in their terminology --- note they define the Witt index to be
     -- the integer w so that q = wH + q_a. This is not the same as the dimension of a maximal totally isotropic subspace
@@ -74,6 +70,7 @@ QQanisotropicDimension2 (GrothendieckWittClass) := (GrothendieckWittClass) => be
 	q = gwAdd(q, hyperbolicForm(QQ,2*(4-w)));
 	n = n + 2*(4-w);
 	);
+
     -- Step 2: Compute discriminant (note they use a signed version of the discriminant in their algorithm)
     d:= ((-1)^(n*(n-1)/2))*integralDiscriminant(q);
     
@@ -87,7 +84,6 @@ QQanisotropicDimension2 (GrothendieckWittClass) := (GrothendieckWittClass) => be
     p:=2;
     solnFound := false;
     
-    
     while not solnFound do(
 	r := #L;
     	-- Step 5c: Make a vector of exponents of Hasse invariants
@@ -96,7 +92,6 @@ QQanisotropicDimension2 (GrothendieckWittClass) := (GrothendieckWittClass) => be
 	    W_(i,0) = (1 - (HasseWittInvariant(q,L_i)))/2;
 	    );
        	
-
 	-- Step 5b: 
 	W = matrix(W);
     	if (d < 0) then(
@@ -131,7 +126,6 @@ QQanisotropicDimension2 (GrothendieckWittClass) := (GrothendieckWittClass) => be
     	W = matrix(kk,entries(W));
     	B = matrix(kk,entries(B));
 
-	
 	if (class(solve(B,W)) === Matrix) then(
 	    X := solve(B,W);
 	    solnFound = true;
@@ -151,10 +145,8 @@ QQanisotropicDimension2 (GrothendieckWittClass) := (GrothendieckWittClass) => be
     for j from 0 to (r-1) do(
 	alpha = alpha * ((L_j)^(sub(X_(j,0),ZZ)));
 	);
-    return diagonalForm(QQ,(alpha, -alpha*d))
-    
-   );
-
+    diagonalForm(QQ,(alpha, -alpha*d)) 
+    );
 
 
 -- Input: Any form over QQ
@@ -162,44 +154,36 @@ QQanisotropicDimension2 (GrothendieckWittClass) := (GrothendieckWittClass) => be
 QQanisotropicPart = method()
 QQanisotropicPart (GrothendieckWittClass) := (GrothendieckWittClass) => (beta) -> (
     beta = diagonalClass(beta);
-    
     n := numRows(beta.matrix);
-    d := anisotropicDimension(beta);
     
     -- If the form is anisotropic 
-    if n == d then(return beta);
+    if anisotropicDimension(beta) == n then(return beta);
     
     -- Initialize an empty quadratic form
-    outputForm := diagonalForm(QQ,());
+    outputForm := diagonalForm(QQ,());    
     alpha := 1;
-    
-    
-    while d>=4 do(
-	d = anisotropicDimension(beta);
+
+    while anisotropicDimension(beta) >= 4 do(
 	outputForm = gwAdd(outputForm,QQanisotropicDimension4(beta));
-	alpha = ((QQanisotropicDimension4(beta)).matrix)_(0,0);
-	
+	alpha = ((QQanisotropicDimension4(beta)).matrix)_(0,0);	
 	beta = gwAdd(beta, diagonalForm(QQ,((-1)*alpha)));
 	);
     
-    if d==3 then(
+    if anisotropicDimension(beta) == 3 then(
 	outputForm = gwAdd(outputForm,QQanisotropicDimension3(beta));
-	alpha = ((QQanisotropicDimension3(beta)).matrix)_(0,0);
-	
+	alpha = ((QQanisotropicDimension3(beta)).matrix)_(0,0);	
 	beta = gwAdd(beta, diagonalForm(QQ,((-1)*alpha)));
 	);
     
-    if d==2 then(
-       outputForm = gwAdd(outputForm, QQanisotropicDimension2(beta));
-       );
+    if anisotropicDimension(beta) == 2 then(
+        outputForm = gwAdd(outputForm, QQanisotropicDimension2(beta));
+        );
     
-    if d==1 then(
-	outputForm = gwAdd(outputForm, diagonalForm(QQ,(integralDiscriminant(beta))));
+    if anisotropicDimension(beta) == 1 then(
+	outputForm = gwAdd(outputForm, diagonalForm(QQ,((-1)^((n-1)/2))*integralDiscriminant(beta)));
 	);
     
-    return outputForm;
-    
-    
+    outputForm
     );
 
 -- Input: A symmetric matrix representing a quadratic form or a GrothendieckWittClass; over QQ, RR, CC, or a finite field of characteristic not 2
@@ -209,7 +193,7 @@ anisotropicPart = method()
 anisotropicPart (Matrix) := (Matrix) => (A) -> (
     k := ring A;
     -- Ensure base field is supported
-    if not (k === CC or instance(k,ComplexField) or k === RR or instance(k,RealField) or k === QQ or (instance(k, GaloisField) and k.char != 2)) then (
+    if not (instance(k,ComplexField) or instance(k,RealField) or k === QQ or (instance(k, GaloisField) and k.char != 2)) then (
         error "Base field not supported; only implemented over QQ, RR, CC, and finite fields of characteristic not 2";
         );
     -- Ensure underlying matrix is symmetric
@@ -218,7 +202,7 @@ anisotropicPart (Matrix) := (Matrix) => (A) -> (
 	);
     diagA := congruenceDiagonalize(A);
     -- Over CC, the anisotropic part is either the rank 0 form or the rank 1 form, depending on the anisotropic dimension
-    if (k === CC or instance(k,ComplexField)) then (
+    if instance(k,ComplexField) then (
         if (anisotropicDimension(A)==0) then (
             return (diagonalMatrix(CC,{}));
             )
@@ -227,7 +211,7 @@ anisotropicPart (Matrix) := (Matrix) => (A) -> (
             );
         )
     --Over RR, the anisotropic part consists of the positive entries in excess of the number of negative entries, or vice versa
-    else if (k === RR or instance(k,RealField)) then (
+    else if instance(k,RealField) then (
         posEntries := numPosDiagEntries(diagA);
         negEntries := numNegDiagEntries(diagA);
         if (posEntries > negEntries) then (
@@ -260,7 +244,6 @@ anisotropicPart (Matrix) := (Matrix) => (A) -> (
     else error "Problem with base field"
     )
 
-
 anisotropicPart (GrothendieckWittClass) := (GrothendieckWittClass) => (alpha) -> (
     return (gwClass(anisotropicPart(alpha.matrix)));
     )
@@ -282,7 +265,6 @@ sumDecompositionVerbose (GrothendieckWittClass) := (GrothendieckWittClass, Strin
     
     outputString := "";
     
-    
     -- Get isotropic dimension of beta and construct its isotropic and anistropic parts
     w := WittIndex(beta);
     
@@ -297,7 +279,7 @@ sumDecompositionVerbose (GrothendieckWittClass) := (GrothendieckWittClass, Strin
         D := diagonalEntries(alpha);
         for i from 0 to (length(D)-1) do (
 	    outputString = outputString | "+ <" | toString(D_i) | ">";
-    )
+            );
 	);
     
     -- Return a simplified form of beta
@@ -310,7 +292,7 @@ sumDecompositionVerbose (GrothendieckWittClass) := (GrothendieckWittClass, Strin
 sumDecomposition = method()
 sumDecomposition (GrothendieckWittClass) := (GrothendieckWittClass) => beta -> (
     beta.cache.diagonalClass = (sumDecompositionVerbose(beta))_0;
-    return (sumDecompositionVerbose(beta))_0
+    (sumDecompositionVerbose(beta))_0
 );
 
 -- Input: A Grothendieck-Witt class beta over a field k
@@ -318,8 +300,5 @@ sumDecomposition (GrothendieckWittClass) := (GrothendieckWittClass) => beta -> (
 
 sumDecompositionString = method()
 sumDecompositionString (GrothendieckWittClass) := (String) => beta -> (
-    return (sumDecompositionVerbose(beta))_1
+    (sumDecompositionVerbose(beta))_1
 );
-
-
-

@@ -19,18 +19,18 @@ HilbertSymbolReal (QQ, QQ) := (ZZ) => (a, b) -> (
 
 HilbertSymbolReal (QQ, ZZ) := (ZZ) => (a,b) -> (
     b1 := b/1;
-    return HilbertSymbolReal(a, b1);
+    HilbertSymbolReal(a, b1)
     );
 
 HilbertSymbolReal (ZZ, QQ) := (ZZ) => (a,b) -> (
     a1 := a/1;
-    return HilbertSymbolReal(a1, b);
+    HilbertSymbolReal(a1, b)
     );
 
 HilbertSymbolReal (ZZ, ZZ) := (ZZ) => (a,b) -> (
     a1:= a/1;
     b1:= b/1;
-    return HilbertSymbolReal(a1, b1);
+    HilbertSymbolReal(a1, b1)
     );
 
 
@@ -97,10 +97,10 @@ HilbertSymbol (QQ, QQ, ZZ) := (ZZ) => (a, b, p) -> (
 
 HilbertSymbol (ZZ, QQ, ZZ) := (ZZ) => (a, b, p) -> (
     a1:=a/1;
-    return HilbertSymbol(a1,b, p);    
-   );
+    HilbertSymbol(a1,b, p)
+    );
 
 HilbertSymbol (QQ, ZZ, ZZ) := (ZZ) => (a, b, p) -> (
    b1:=b/1;
-   return HilbertSymbol(a, b1, p);    
+   HilbertSymbol(a, b1, p)
    );

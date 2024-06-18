@@ -11,7 +11,7 @@ GrothendieckWittClass.synonym = "Grothendieck Witt Class"
 
 gwClass = method()
 gwClass (Matrix) := GrothendieckWittClass => M -> (
-   if (isWellDefined(M)) then (
+   if isWellDefined(M) then (
         new GrothendieckWittClass from {
             symbol matrix => M,
             symbol cache => new CacheTable
@@ -39,7 +39,7 @@ isWellDefined (Matrix) := Boolean => M -> (
 	);
 
     -- Returns false if the matrix represents a degenerate form
-    if (isDegenerate(M) and numRows(M) > 0) then (
+    if (isDegenerate(M)) then (
 	<< "-- Defining matrix is degenerate" << endl;
 	return false;
         );
@@ -55,8 +55,9 @@ isWellDefined (Matrix) := Boolean => M -> (
 	<< "-- Package does not support base fields of characteristic two" <<endl;
 	return false;
 	);
-    
-    true);
+
+    true
+    );
 
 -- Input: A Grothendieck-Witt class beta, the isomorphism class of a symmetric bilinear form
 -- Output: The base ring of beta
@@ -83,7 +84,7 @@ gwAdd(GrothendieckWittClass, GrothendieckWittClass) := GrothendieckWittClass => 
     
     -- remaining cases
     if not Kb === Kg then error "Error: these classes have different underlying fields";
-    	return gwClass(beta.matrix ++ gamma.matrix)
+    gwClass(beta.matrix ++ gamma.matrix)
     )
 
 -- Input: Two Grothendieck-Witt classes beta and gamma
@@ -104,5 +105,5 @@ gwMultiply(GrothendieckWittClass, GrothendieckWittClass) := GrothendieckWittClas
     
     -- remaining cases
     if not Kb === Kg then error "Error: these classes have different underlying fields";
-    	return gwClass(beta.matrix ** gamma.matrix)
+    gwClass(beta.matrix ** gamma.matrix)
     )

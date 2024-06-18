@@ -25,7 +25,7 @@ isDegenerate = method()
 isDegenerate (Matrix) := Boolean => M ->(
 
     if numRows(M) == 0 then(
-	return true
+	return false
 	)
     else(
 	return det(M) == 0
@@ -51,8 +51,8 @@ isUpperLeftTriangular (Matrix) := Boolean => M -> (
 		    return false
 		    );
 		
+            );
         );
-    );
     true
     )
  
@@ -77,8 +77,8 @@ isDiagonal (Matrix) := Boolean => M -> (
 		    return false
 		    );
 		);
+            );
         );
-    );
     true
     )
 
@@ -88,11 +88,11 @@ isDiagonal (Matrix) := Boolean => M -> (
 congruenceDiagonalize = method()
 congruenceDiagonalize (Matrix) := (Matrix) => (AnonMut) -> (
     k := ring AnonMut;
-    if isField k == false then error "Error: expected matrix entries from a field";
+    if not isField(k) then error "Error: expected matrix entries from a field";
     if not isSquareAndSymmetric(AnonMut) then error "matrix is not symmetric";
     
     -- If the matrix is already diagonal then return it
-    if isDiagonal(AnonMut) == true then(
+    if isDiagonal(AnonMut) then(
 	return AnonMut
 	);
     
@@ -133,7 +133,7 @@ congruenceDiagonalize (Matrix) := (Matrix) => (AnonMut) -> (
                 );
             );
         );
-    return matrix A 
+    matrix A 
     )
 
 -- Input: A symmetric matrix 
@@ -142,7 +142,7 @@ congruenceDiagonalize (Matrix) := (Matrix) => (AnonMut) -> (
 congruenceDiagonalizeSimplify = method()
 congruenceDiagonalizeSimplify (Matrix) := (Matrix) => (AnonMut) -> (
     k := ring AnonMut;
-    if not (k === CC or instance(k,ComplexField) or k === RR or instance(k,RealField) or k === QQ or (instance(k, GaloisField) and k.char != 2)) then (
+    if not (instance(k,ComplexField) or instance(k,RealField) or k === QQ or (instance(k, GaloisField) and k.char != 2)) then (
         error "Base field not supported; only implemented over QQ, RR, CC, and finite fields of characteristic not 2";
         );
     if not isSquareAndSymmetric(AnonMut) then error "matrix is not symmetric";
@@ -152,7 +152,7 @@ congruenceDiagonalizeSimplify (Matrix) := (Matrix) => (AnonMut) -> (
     n := numRows(A);
 
     -- If the field is the complex numbers, we can replace each nonzero entry of the diagonalization by 1
-    if (k === CC or instance(k,ComplexField)) then (
+    if instance(k,ComplexField) then (
 	for i from 0 to (n-1) do (
 	    if A_(i,i) != 0 then (
 		A_(i,i) = 1;
@@ -162,7 +162,7 @@ congruenceDiagonalizeSimplify (Matrix) := (Matrix) => (AnonMut) -> (
 	)
     
     -- If the field is the real numbers, we can replace each positive entry of the diagonalization by 1 and each negative entry by -1
-    else if (k === RR or instance(k,RealField)) then (
+    else if instance(k,RealField) then (
 	for i from 0 to (n-1) do (
 	    if A_(i,i) > 0 then (
 		A_(i,i) = 1;
@@ -223,7 +223,7 @@ nondegeneratePartDiagonal (Matrix) := (Matrix) => (A) -> (
             i = i+1;
             );
         );
-    return (diagA);
+    diagA
     )
 
 -- Input: A symmetric matrix representing a quadratic form
@@ -231,5 +231,5 @@ nondegeneratePartDiagonal (Matrix) := (Matrix) => (A) -> (
 
 nondegenerateDimension = method()
 nondegenerateDimension (Matrix) := (ZZ) => (A) -> (
-    return (numRows(nondegeneratePartDiagonal(A)));
+    numRows(nondegeneratePartDiagonal(A))
     )

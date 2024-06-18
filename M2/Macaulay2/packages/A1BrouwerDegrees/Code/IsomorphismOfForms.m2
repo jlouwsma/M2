@@ -25,12 +25,7 @@ isIsomorphicFormQ (GrothendieckWittClass, GrothendieckWittClass) := Boolean => (
 	    break;
 	    );
 	);
-    if flag == 0 then (
-	return true;
-	)
-    else (
-	return false;
-	);
+    flag == 0
     );
 
 isIsomorphicFormQ (Matrix, Matrix) := Boolean => (M,N) -> (
@@ -42,7 +37,7 @@ isIsomorphicFormQ (Matrix, Matrix) := Boolean => (M,N) -> (
 
 gwIsomorphic = method()
 gwIsomorphic (GrothendieckWittClass,GrothendieckWittClass) := (Boolean) => (alpha,beta) -> (
-    return(isIsometricForm(alpha.matrix,beta.matrix));
+    isIsometricForm(alpha.matrix,beta.matrix)
     )
 
 -- Input: Two symmetric bilinear forms represented as matrices
@@ -53,10 +48,10 @@ isIsometricForm (Matrix,Matrix) := (Boolean) => (A,B) -> (
     k1 := ring A;
     k2 := ring B;
     -- Ensure both base fields are supported
-    if not (k1 === CC or instance(k1,ComplexField) or k1 === RR or instance(k1,RealField) or k1 === QQ or (instance(k1, GaloisField) and k1.char != 2)) then (
+    if not (instance(k1,ComplexField) or instance(k1,RealField) or k1 === QQ or (instance(k1, GaloisField) and k1.char != 2)) then (
         error "Base field not supported; only implemented over QQ, RR, CC, and finite fields of characteristic not 2";
         );
-    if not (k2 === CC or instance(k2,ComplexField) or k2 === RR or instance(k2,RealField) or k2 === QQ or (instance(k1, GaloisField) and k1.char != 2)) then (
+    if not (instance(k2,ComplexField) or instance(k2,RealField) or k2 === QQ or (instance(k1, GaloisField) and k1.char != 2)) then (
         error "Base field not supported; only implemented over QQ, RR, CC, and finite fields of characteristic not 2";
         );
     
@@ -72,7 +67,7 @@ isIsometricForm (Matrix,Matrix) := (Boolean) => (A,B) -> (
     -----------------------------------
     
     -- Over CC, diagonal forms over spaces of the same dimension are equivalent if and only if they have the same number of nonzero entries
-    if (k1 === CC or instance(k1,ComplexField)) and (k2 === CC or instance(k2,ComplexField)) then (
+    if (instance(k1,ComplexField) and instance(k2,ComplexField)) then (
         return ((numRows(A) == numRows(B)) and (numNonzeroDiagEntries(diagA) == numNonzeroDiagEntries(diagB)));
         )
     
@@ -81,7 +76,7 @@ isIsometricForm (Matrix,Matrix) := (Boolean) => (A,B) -> (
     -----------------------------------
     
     -- Over RR, diagonal forms of the same dimension are equivalent if and only if they have the same number of positive and negative entries
-    else if ((k1 === RR or instance(k1,RealField)) and (k2 === RR or instance(k2,RealField))) then (
+    else if (instance(k1,RealField) or instance(k2,RealField)) then (
         return ((numRows(A) == numRows(B)) and (numPosDiagEntries(diagA) == numPosDiagEntries(diagB)) and (numNegDiagEntries(diagA) == numNegDiagEntries(diagB)));
         )
     
