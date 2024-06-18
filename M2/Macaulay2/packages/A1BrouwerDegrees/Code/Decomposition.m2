@@ -75,9 +75,9 @@ QQanisotropicDimension2 (GrothendieckWittClass) := (GrothendieckWittClass) => be
     d:= ((-1)^(n*(n-1)/2))*integralDiscriminant(q);
     
     -- Step 3: Take relevant primes plus dyadic ones
-    L := relevantPrimes(beta);
-    if not member(2,L) then(
-	L = append(L,2);
+    S := relevantPrimes(beta);
+    if not member(2,S) then(
+	S = append(S,2);
 	);
     
     -- Start the loop at p=2
@@ -85,14 +85,23 @@ QQanisotropicDimension2 (GrothendieckWittClass) := (GrothendieckWittClass) => be
     solnFound := false;
     
     while not solnFound do(
-	r := #L;
+	s := #S;
+
+	-- Step 5a: Make a basis for the group of S-singular elements
+	-- Gabe/Tommy: we think this should be {-1,2,relevantPrimes}
+	basisES := S;
+	basisES = append(basisES,-1);
+	m := #basisES;
+
+    
+	
     	-- Step 5c: Make a vector of exponents of Hasse invariants
-	W := mutableMatrix(QQ,r,1);
-	for i from 0 to (r-1) do(
-	    W_(i,0) = (1 - (HasseWittInvariant(q,L_i)))/2;
+	W := mutableMatrix(QQ,s,1);
+	for i from 0 to (s-1) do(
+	    W_(i,0) = (1 - (HasseWittInvariant(q,S_i)))/2;
 	    );
        	
-	-- Step 5b: 
+	-- Step 5b / 5f: 
 	W = matrix(W);
     	if (d < 0) then(
 	    if not (abs(signature(q)) == 2) then (error "signature isn't pm 2");
@@ -106,22 +115,29 @@ QQanisotropicDimension2 (GrothendieckWittClass) := (GrothendieckWittClass) => be
 	);
         
     	-- Step 5e: Make a matrix of Hilbert symbols
-    	B := mutableIdentity(QQ,r);
-    	for i from 0 to (r-1) do(
-	    for j from 0 to (r-1) do(
-	    	B_(i,j) = (1 - HilbertSymbol(L_j, d, L_i))/2;
+    	B := mutableMatrix(QQ,s,m);	
+    	for i from 0 to (s-1) do(
+	    for j from 0 to (m-1) do(
+	    	B_(i,j) = (1 - HilbertSymbol(basisES_j, d, S_i))/2;
 	    	);
 	    );
 	B = matrix(B);
     	
 	-- Step 5d: Append a zero column on the front if the discriminant is negative
     	if (d < 0) then(
-	    zeroVec := mutableMatrix(QQ,1,r);
-	    for i from 0 to (r-1) do(
-	    	zeroVec_(0,i) = 0
+	    A := mutableMatrix(QQ,1,m);
+	    for i from 0 to (m-1) do(
+	    	if basisES_i > 0 then(
+		    A_(0,i) = 0;
+		    )
+		else(
+		    A_(0,i) = 1;
+		    );
 	    	);
-	    B = matrix(zeroVec) || B;
+	    B = matrix(A) || B;
 	    );
+
+	-- Step 5f - try to solve matrices over F2
         kk := GF(2);
     	W = matrix(kk,entries(W));
     	B = matrix(kk,entries(B));
@@ -133,17 +149,17 @@ QQanisotropicDimension2 (GrothendieckWittClass) := (GrothendieckWittClass) => be
 	    )
 	else(
 	    p = nextPrime(p+1);
-	    while (member(p,L)==true) do(
+	    while (member(p,S)==true) do(
 		p = nextPrime(p+1);
 		);
 
-	    L = append(L,p);
+	    S = append(S,p);
 	    );
 	);
   
     alpha := sub(1,ZZ);
-    for j from 0 to (r-1) do(
-	alpha = alpha * ((L_j)^(sub(X_(j,0),ZZ)));
+    for j from 0 to (s-1) do(
+	alpha = alpha * ((basisES_j)^(sub(X_(j,0),ZZ)));
 	);
     diagonalForm(QQ,(alpha, -alpha*d)) 
     );
