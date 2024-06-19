@@ -93,8 +93,6 @@ QQanisotropicDimension2 (GrothendieckWittClass) := (GrothendieckWittClass) => be
 	basisES = append(basisES,-1);
 	m := #basisES;
 
-    
-	
     	-- Step 5c: Make a vector of exponents of Hasse invariants
 	W := mutableMatrix(QQ,s,1);
 	for i from 0 to (s-1) do(
@@ -152,18 +150,16 @@ QQanisotropicDimension2 (GrothendieckWittClass) := (GrothendieckWittClass) => be
 	    while (member(p,S)==true) do(
 		p = nextPrime(p+1);
 		);
-
 	    S = append(S,p);
 	    );
 	);
   
     alpha := sub(1,ZZ);
-    for j from 0 to (s-1) do(
+    for j from 0 to (m-1) do(
 	alpha = alpha * ((basisES_j)^(sub(X_(j,0),ZZ)));
 	);
-    diagonalForm(QQ,(alpha, -alpha*d)) 
+    diagonalForm(QQ,(alpha, -squarefreePart(alpha*d))) 
     );
-
 
 -- Input: Any form over QQ
 -- Output: Its anisotropic part
