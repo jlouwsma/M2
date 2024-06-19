@@ -219,6 +219,6 @@ rankGlobalAlgebra (List) := (ZZ) => (Endo) -> (
 	);
     
     -- Get the rank of S/ideal(Endo) as a kk-vector space
-    numColumns(basis(S/ideal(Endo)));   
+    numColumns(basis(S/ideal(Endo)))
     )
 
