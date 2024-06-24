@@ -2,22 +2,16 @@
 -- Invariants
 ---------------------------------------
 
--- Input: A diagonal matrix
--- Output: The number of nonzero entries on the diagonal of a diagonal matrix to which it is congruent
--- Note: numNonzeroDiagEntries is *not* included as a method in the A1BrowerDegrees package
+-- Input: A Grothendieck-Witt class
+-- Output: The rank of a quadratic form representing the Grothendieck-Witt class
 
-numNonzeroDiagEntries = method()
-numNonzeroDiagEntries (Matrix) := (Matrix) => (A) -> (
-    if not isDiagonal(A) then(
-        A = congruenceDiagonalize(A);
+rank (GrothendieckWittClass) := (ZZ) => (alpha) -> (
+    if (numRows(alpha.matrix)==0) then(
+        return(0);
+        )
+    else (
+        return(rank(alpha.matrix));
         );
-    nonzeroDiagEntries := 0;
-    for i from 0 to (numRows(A)-1) do (
-        if A_(i,i) != 0 then (
-            nonzeroDiagEntries = nonzeroDiagEntries + 1;
-            );
-        );
-    nonzeroDiagEntries
     )
 
 -- Input: A diagonal matrix over QQ or RR
