@@ -6,12 +6,7 @@
 -- Output: The rank of a quadratic form representing the Grothendieck-Witt class
 
 rank (GrothendieckWittClass) := (ZZ) => (alpha) -> (
-    if (numRows(alpha.matrix)==0) then(
-        return(0);
-        )
-    else (
-        return(rank(alpha.matrix));
-        );
+    numRows(alpha.matrix)
     )
 
 -- Input: A diagonal matrix over QQ or RR
