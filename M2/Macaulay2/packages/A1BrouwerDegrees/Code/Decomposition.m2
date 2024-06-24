@@ -1,5 +1,5 @@
 -- Input: A form 1 over QQ of anisotropic dimension d >= 4
--- Output: A form < a > so that q + < -a > has anisotropic dimension d - 1
+-- Output: A form < a > so that q + < a > has anisotropic dimension d - 1
 
 -- Note: This is Koprowski/Rothkegel's Algorithm 5 in the case of QQ
 
@@ -93,6 +93,8 @@ QQanisotropicDimension2 (GrothendieckWittClass) := (GrothendieckWittClass) => be
 	basisES = append(basisES,-1);
 	m := #basisES;
 
+    
+	
     	-- Step 5c: Make a vector of exponents of Hasse invariants
 	W := mutableMatrix(QQ,s,1);
 	for i from 0 to (s-1) do(
@@ -153,13 +155,13 @@ QQanisotropicDimension2 (GrothendieckWittClass) := (GrothendieckWittClass) => be
 	    S = append(S,p);
 	    );
 	);
-  
     alpha := sub(1,ZZ);
     for j from 0 to (m-1) do(
 	alpha = alpha * ((basisES_j)^(sub(X_(j,0),ZZ)));
 	);
-    diagonalForm(QQ,(alpha, -squarefreePart(alpha*d))) 
+    diagonalForm(QQ,(alpha, -squarefreePart(alpha*d)))
     );
+
 
 -- Input: Any form over QQ
 -- Output: Its anisotropic part
@@ -243,13 +245,13 @@ anisotropicPart (Matrix) := (Matrix) => (A) -> (
     -- Over a finite field, if the anisotropic dimension is 1, then the form is either <1> or <e>, where e is any nonsquare representative, and if the anisotropic dimension is 2 then the form is <1,-e>
     else if (instance(k, GaloisField) and k.char != 2) then (
         if (anisotropicDimension(A)==1) then (
-            return (matrix(k,{{sub((-1)^((numNonzeroDiagEntries(diagA)-1)/2),k)*det(nondegeneratePartDiagonal(diagA))}}));
+            return (matrix(k,{{sub((-1)^((rank(diagA)-1)/2),k)*det(nondegeneratePartDiagonal(diagA))}}));
             )
         else if (anisotropicDimension(A)==0) then (
             return (diagonalMatrix(k,{}));
             )
         else (
-            return (matrix(k,{{1,0},{0,sub((-1)^((numNonzeroDiagEntries(diagA)-2)/2),k)*det(nondegeneratePartDiagonal(diagA))}}));
+            return (matrix(k,{{1,0},{0,sub((-1)^((rank(diagA)-2)/2),k)*det(nondegeneratePartDiagonal(diagA))}}));
             );
         )
     -- We should never get here
