@@ -1,5 +1,5 @@
 -- Input: A form 1 over QQ of anisotropic dimension d >= 4
--- Output: A form < a > so that q + < -a > has anisotropic dimension d - 1
+-- Output: A form < a > so that q + < a > has anisotropic dimension d - 1
 
 -- Note: This is Koprowski/Rothkegel's Algorithm 5 in the case of QQ
 
@@ -93,6 +93,8 @@ QQanisotropicDimension2 (GrothendieckWittClass) := (GrothendieckWittClass) => be
 	basisES = append(basisES,-1);
 	m := #basisES;
 
+    
+	
     	-- Step 5c: Make a vector of exponents of Hasse invariants
 	W := mutableMatrix(QQ,s,1);
 	for i from 0 to (s-1) do(
@@ -212,7 +214,6 @@ anisotropicPart (Matrix) := (Matrix) => (A) -> (
     if (transpose(A) != A) then (
         error "Underlying matrix is not symmetric";
 	);
-    diagA := congruenceDiagonalize(A);
     -- Over CC, the anisotropic part is either the rank 0 form or the rank 1 form, depending on the anisotropic dimension
     if instance(k,ComplexField) then (
         if (anisotropicDimension(A)==0) then (
@@ -224,8 +225,9 @@ anisotropicPart (Matrix) := (Matrix) => (A) -> (
         )
     --Over RR, the anisotropic part consists of the positive entries in excess of the number of negative entries, or vice versa
     else if instance(k,RealField) then (
-        posEntries := numPosDiagEntries(diagA);
-        negEntries := numNegDiagEntries(diagA);
+        diagonalA := congruenceDiagonalize(A);
+        posEntries := numPosDiagEntries(diagonalA);
+        negEntries := numNegDiagEntries(diagonalA);
         if (posEntries > negEntries) then (
             return (id_(RR^(posEntries-negEntries)));
             )
@@ -242,6 +244,7 @@ anisotropicPart (Matrix) := (Matrix) => (A) -> (
         )
     -- Over a finite field, if the anisotropic dimension is 1, then the form is either <1> or <e>, where e is any nonsquare representative, and if the anisotropic dimension is 2 then the form is <1,-e>
     else if (instance(k, GaloisField) and k.char != 2) then (
+        diagA := congruenceDiagonalize(A);
         if (anisotropicDimension(A)==1) then (
             return (matrix(k,{{sub((-1)^((rank(diagA)-1)/2),k)*det(nondegeneratePartDiagonal(diagA))}}));
             )
