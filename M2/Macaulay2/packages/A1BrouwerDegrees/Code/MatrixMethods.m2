@@ -233,3 +233,4 @@ nondegenerateDimension = method()
 nondegenerateDimension (Matrix) := (ZZ) => (A) -> (
     numRows(nondegeneratePartDiagonal(A))
     )
+
