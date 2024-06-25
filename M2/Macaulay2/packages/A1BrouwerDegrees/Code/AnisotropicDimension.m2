@@ -144,7 +144,7 @@ anisotropicDimension (Matrix) := (ZZ) => (A) -> (
         )
     -- Over a finite field, if the number of nonzero diagonal entries is odd, then the anisotropic dimension is 1; if the number of nonzero diagonal entries is even, then the anisotropic dimension is either 0 or 2 depending on whether the nondegenerate part of the form is totally hyperbolic
     else if (instance(k, GaloisField) and k.char != 2) then (
-        if (rank(A)%2 == 1) then (
+        if (rank(diagA)%2 == 1) then (
             return 1;
             )
         else if (legendreBoolean(det(nondegeneratePartDiagonal(diagA))) == legendreBoolean(sub((-1)^(numRows(nondegeneratePartDiagonal(diagA))/2),k))) then (
