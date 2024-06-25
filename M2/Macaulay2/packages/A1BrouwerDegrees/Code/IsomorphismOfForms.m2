@@ -62,7 +62,7 @@ isIsometricForm (Matrix,Matrix) := (Boolean) => (A,B) -> (
     -- Complex numbers
     -----------------------------------
     
-    -- Over CC, diagonal forms over spaces of the same dimension are equivalent if and only if they have the same rank
+    -- Over CC, forms over spaces of the same dimension are equivalent if and only if they have the same rank
     if (instance(k1,ComplexField) and instance(k2,ComplexField)) then (
         return ((numRows(A) == numRows(B)) and (rank(A) == rank(B)));
         )
