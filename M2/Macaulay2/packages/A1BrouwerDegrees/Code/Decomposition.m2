@@ -256,7 +256,7 @@ anisotropicPart (Matrix) := (Matrix) => (A) -> (
     )
 
 anisotropicPart (GrothendieckWittClass) := (GrothendieckWittClass) => (alpha) -> (
-    return (gwClass(anisotropicPart(alpha.matrix)));
+    gwClass(anisotropicPart(alpha.matrix))
     )
 
 ---------------------------------------
