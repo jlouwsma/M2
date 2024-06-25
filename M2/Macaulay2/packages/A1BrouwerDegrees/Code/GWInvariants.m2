@@ -15,12 +15,12 @@ rank (GrothendieckWittClass) := (ZZ) => (alpha) -> (
 
 numPosDiagEntries = method()
 numPosDiagEntries (Matrix) := (Matrix) => (A) -> (
-    if not isDiagonal(A) then(
-        A = congruenceDiagonalize(A);
-        );
     k := ring A;
     if not (instance(k,RealField) or k === QQ) then(
         error "Only implemented over QQ and RR";
+        );
+    if not isDiagonal(A) then(
+        A = congruenceDiagonalize(A);
         );
     posDiagEntries := 0;
     for i from 0 to (numRows(A)-1) do (
@@ -37,12 +37,12 @@ numPosDiagEntries (Matrix) := (Matrix) => (A) -> (
 
 numNegDiagEntries = method()
 numNegDiagEntries (Matrix) := (Matrix) => (A) -> (
-    if not isDiagonal(A) then(
-        A = congruenceDiagonalize(A);
-        );
     k := ring A;
     if not (instance(k,RealField) or k === QQ) then(
         error "Only implemented over QQ and RR";
+        );
+    if not isDiagonal(A) then(
+        A = congruenceDiagonalize(A);
         );
     negDiagEntries := 0;
     for i from 0 to (numRows(A)-1) do (
@@ -168,3 +168,4 @@ HasseWittInvariant(GrothendieckWittClass, ZZ) := ZZ => (beta,p) -> (
     if not isPrime(p) then error "second argument must be a prime number";
     HasseWittInvariant(diagonalEntries(diagonalClass(beta)),p)
     )
+
