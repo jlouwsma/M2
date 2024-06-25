@@ -202,10 +202,7 @@ congruenceDiagonalizeSimplify (Matrix) := (Matrix) => (AnonMut) -> (
 		);
 	    );
 	return (matrix A);
-	)
-
-    -- We should never get here
-    else error "Problem with base field"
+	);
     )
 
 -- Input: A symmetric matrix representing a quadratic form
@@ -233,4 +230,3 @@ nondegenerateDimension = method()
 nondegenerateDimension (Matrix) := (ZZ) => (A) -> (
     numRows(nondegeneratePartDiagonal(A))
     )
-
