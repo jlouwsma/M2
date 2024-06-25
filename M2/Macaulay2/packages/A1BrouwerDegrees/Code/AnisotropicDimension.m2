@@ -154,9 +154,7 @@ anisotropicDimension (Matrix) := (ZZ) => (A) -> (
         else (
             return 2;
             );
-        )
-    -- We should never get here
-    else error "Problem with base field"
+        );
     );
 
 anisotropicDimension (GrothendieckWittClass) := (ZZ) => (alpha) -> (
@@ -172,4 +170,3 @@ WittIndex (GrothendieckWittClass) := (ZZ) => (alpha) -> (
     n := numRows(alpha.matrix);
     sub((n - anisotropicDimension(alpha))/2,ZZ)
     );
-
