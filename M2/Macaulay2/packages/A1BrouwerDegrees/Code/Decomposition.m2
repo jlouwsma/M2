@@ -252,9 +252,7 @@ anisotropicPart (Matrix) := (Matrix) => (A) -> (
         else (
             return (matrix(k,{{1,0},{0,sub((-1)^((rank(diagA)-2)/2),k)*det(nondegeneratePartDiagonal(diagA))}}));
             );
-        )
-    -- We should never get here
-    else error "Problem with base field"
+        );
     )
 
 anisotropicPart (GrothendieckWittClass) := (GrothendieckWittClass) => (alpha) -> (
@@ -306,7 +304,7 @@ sumDecomposition = method()
 sumDecomposition (GrothendieckWittClass) := (GrothendieckWittClass) => beta -> (
     beta.cache.diagonalClass = (sumDecompositionVerbose(beta))_0;
     (sumDecompositionVerbose(beta))_0
-);
+    );
 
 -- Input: A Grothendieck-Witt class beta over a field k
 -- Output: The decomposition as a sum of hyperbolic and rank one forms
@@ -314,4 +312,4 @@ sumDecomposition (GrothendieckWittClass) := (GrothendieckWittClass) => beta -> (
 sumDecompositionString = method()
 sumDecompositionString (GrothendieckWittClass) := (String) => beta -> (
     (sumDecompositionVerbose(beta))_1
-);
+    );
