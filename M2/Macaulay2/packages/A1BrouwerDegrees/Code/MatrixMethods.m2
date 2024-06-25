@@ -158,7 +158,6 @@ congruenceDiagonalizeSimplify (Matrix) := (Matrix) => (AnonMut) -> (
 		A_(i,i) = 1;
 		);
             );
-	return (matrix A);
 	)
     
     -- If the field is the real numbers, we can replace each positive entry of the diagonalization by 1 and each negative entry by -1
@@ -171,7 +170,6 @@ congruenceDiagonalizeSimplify (Matrix) := (Matrix) => (AnonMut) -> (
 		A_(i,i) = -1;
 		);
 	    );
-	return (matrix A);
 	)
 
     -- If the field is the rational numbers, we can diagonalize and take squarefree parts
@@ -179,7 +177,6 @@ congruenceDiagonalizeSimplify (Matrix) := (Matrix) => (AnonMut) -> (
 	for i from 0 to (n-1) do (
             A_(i,i) = squarefreePart(A_(i,i));
 	    );
-	return (matrix A);
 	)
 
     -- Over a finite field, we can diagonalize and replace every entry by 1 or a nonsquare representative
@@ -201,8 +198,8 @@ congruenceDiagonalizeSimplify (Matrix) := (Matrix) => (AnonMut) -> (
 		A_(i,i) = nonSquareRep;
 		);
 	    );
-	return (matrix A);
 	);
+    matrix A
     )
 
 -- Input: A symmetric matrix representing a quadratic form
