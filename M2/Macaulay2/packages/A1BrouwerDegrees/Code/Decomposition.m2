@@ -1,5 +1,5 @@
 -- Input: A form 1 over QQ of anisotropic dimension d >= 4
--- Output: A form < a > so that q + < a > has anisotropic dimension d - 1
+-- Output: A form < a > so that q + < -a > has anisotropic dimension d - 1
 
 -- Note: This is Koprowski/Rothkegel's Algorithm 5 in the case of QQ
 
@@ -93,8 +93,6 @@ QQanisotropicDimension2 (GrothendieckWittClass) := (GrothendieckWittClass) => be
 	basisES = append(basisES,-1);
 	m := #basisES;
 
-    
-	
     	-- Step 5c: Make a vector of exponents of Hasse invariants
 	W := mutableMatrix(QQ,s,1);
 	for i from 0 to (s-1) do(
