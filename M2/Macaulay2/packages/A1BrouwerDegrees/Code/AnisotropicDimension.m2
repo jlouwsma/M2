@@ -28,7 +28,7 @@ isHyperbolicQp (GrothendieckWittClass, ZZ) := Boolean => (beta, p) ->(
     
     -- At this stage, the rank and discriminant of our beta agrees with that of a hyperbolic form,
     -- so by e.g. Lam V.3.25 it suffices to check if their Hasse-Witt invariants agree
-    if even rankForm then(
+    if even rankForm then (
 	m := sub(rankForm/2,ZZ);
 	
 	-- The Hasse-Witt invariant of mH:
@@ -56,7 +56,7 @@ anisotropicDimensionQp (GrothendieckWittClass, ZZ) := ZZ => (beta, p) ->(
     if not isPrime(p) then error "second argument must be a prime number";
     if isDegenerate(B) then error "form is degenerate";
     
-    if even rankForm then(
+    if even rankForm then (
 	-- If the form is hyperbolic it has no anisotropic part
 	if isHyperbolicQp(beta,p) then return 0;
        	
@@ -66,7 +66,7 @@ anisotropicDimensionQp (GrothendieckWittClass, ZZ) := ZZ => (beta, p) ->(
 	return 2;
 	);
     
-    if odd rankForm then(
+    if odd rankForm then (
 	c := (-1)^(rankForm*(rankForm+1)/2) * integralDiscriminant(beta);
 	gamma := gwAdd(beta, diagonalForm(QQ,(c)));
 	if isHyperbolicQp(gamma,p) then return 1;
@@ -98,7 +98,7 @@ anisotropicDimensionQQ (GrothendieckWittClass) := ZZ => (beta) -> (
     ListOfLocalAnistropicDimensions = append(ListOfLocalAnistropicDimensions, anisotropicDimensionQp(beta,2));
        
     -- For the remaining local fields, we can just look at relevant primes
-    for p in relevantPrimes(beta) do(
+    for p in relevantPrimes(beta) do (
 	ListOfLocalAnistropicDimensions = append(ListOfLocalAnistropicDimensions, anisotropicDimensionQp(beta,p))
 	);
     max ListOfLocalAnistropicDimensions
