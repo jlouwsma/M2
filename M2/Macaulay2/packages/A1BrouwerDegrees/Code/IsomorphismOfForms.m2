@@ -25,11 +25,11 @@ isIsomorphicFormQ (GrothendieckWittClass, GrothendieckWittClass) := Boolean => (
 	    );
 	);
     flag == 0
-    );
+    )
 
 isIsomorphicFormQ (Matrix, Matrix) := Boolean => (M,N) -> (
     return isIsomorphicFormQ(gwClass(M),gwClass(N));
-    );
+    )
 
 -- Input: Two Grothendieck-Witt classes alpha and beta, defined over CC, RR, QQ, or a finite field of characteristic not 2
 -- Output: Boolean checking if alpha and beta are the same
