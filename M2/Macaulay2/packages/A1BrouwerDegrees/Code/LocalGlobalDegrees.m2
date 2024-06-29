@@ -15,7 +15,7 @@ globalA1Degree (List) := (GrothendieckWittClass) => (Endo) -> (
     -- Get the underlying field, assert it is a field
     kk := coefficientRing(ring(Endo#0)); 
     
-    if not isField(kk) then(
+    if not isField(kk) then (
 	kk = toField(kk);
 	);
     
@@ -29,7 +29,7 @@ globalA1Degree (List) := (GrothendieckWittClass) => (Endo) -> (
     if not #(gens S) == n then error "the number of variables does not match the number of polynomials.";
     
     -- If the field is CC, just output gwClass of an identity matrix of rank = rankAlgebra
-    if instance(kk,ComplexField) then(
+    if instance(kk,ComplexField) then (
     	rankAlgebra:=rankGlobalAlgebra(Endo);
     	return gwClass(matrix(mutableIdentity(CC,rankAlgebra)));
         );
@@ -49,7 +49,7 @@ globalA1Degree (List) := (GrothendieckWittClass) => (Endo) -> (
     try D = mutableMatrix id_((frac R)^n) else D= mutableMatrix id_(R^n);
     
     for i from 0 to (n-1) do (
-	for j from 0 to (n-1) do(
+	for j from 0 to (n-1) do (
 	    -- iterate through the entries of the matrix D and populate it with the following information ...
         -- create the list {Y_1, ..., Y_(j-1), X_j, ..., X_n}. Note Macaulay2 is 0-indexed hence the difference in notation. 
 	    targetList1 := apply(toList (Y_1..Y_j|X_(j+1)..X_n),i->i_R);
@@ -70,14 +70,14 @@ globalA1Degree (List) := (GrothendieckWittClass) => (Endo) -> (
 
     -- The determinant of D is interpreted as living in Frac(k[x_1..x_n]),
     -- so we can try to lift it to k[x_1..x_n]           
-    if liftable(det(D),R) then(
+    if liftable(det(D),R) then (
 	bezDetR = lift(det(D),R);
 	);
     
     -- In some computations, applying lift(-,R) won't work. So we instead lift
     -- the numerator and then divide by a lift of the denominator (which will be
     -- a scalar) to the coefficient ring k
-    if not liftable(det(D),R) then(
+    if not liftable(det(D),R) then (
 	bezDet = lift(numerator(det(D)), R) / lift(denominator(det(D)),coefficientRing R);
     	bezDetR = lift(bezDet, R);
 	);
@@ -147,7 +147,7 @@ localA1Degree (List, Ideal) := (GrothendieckWittClass) => (Endo,p) -> (
     -- Get the underlying field, assert it is a field
     kk := coefficientRing(ring(Endo#0)); 
 
-    if not isField(kk) then(
+    if not isField(kk) then (
 	kk = toField(kk);
 	);
 
@@ -167,7 +167,7 @@ localA1Degree (List, Ideal) := (GrothendieckWittClass) => (Endo,p) -> (
     if not #(gens S) == n then error "the number of variables does not match the number of polynomials.";
     
     -- If the field is CC, just output gwClass of an identity matrix of rank = localFormRank
-    if instance(kk,ComplexField) then(
+    if instance(kk,ComplexField) then (
 	return gwClass(matrix(mutableIdentity(CC,localFormRank)));
         );
     
@@ -187,7 +187,7 @@ localA1Degree (List, Ideal) := (GrothendieckWittClass) => (Endo,p) -> (
     try D = mutableMatrix id_((frac R)^n) else D= mutableMatrix id_(R^n);
     
     for i from 0 to (n-1) do (
-	for j from 0 to (n-1) do(
+	for j from 0 to (n-1) do (
 	    -- iterate through the entries of the matrix D and populate it with the following information ...
         -- create the list {Y_1, ..., Y_(j-1), X_j, ..., X_n}. Note Macaulay2 is 0-indexed hence the difference in notation. 
 	    targetList1 := apply(toList (Y_1..Y_j|X_(j+1)..X_n),i->i_R);
@@ -208,14 +208,14 @@ localA1Degree (List, Ideal) := (GrothendieckWittClass) => (Endo,p) -> (
     
     -- The determinant of D is interpreted as living in Frac(k[x_1..x_n]),
     -- so we can try to lift it to k[x_1..x_n]           
-    if liftable(det(D),R) then(
+    if liftable(det(D),R) then (
 	bezDetR = lift(det(D),R);
 	);
     
     -- In some computations, applying lift(-,R) won't work. So we instead lift
     -- the numerator and then divide by a lift of the denominator (which will be
     -- a scalar) to the coefficient ring k
-    if not liftable(det(D),R) then(
+    if not liftable(det(D),R) then (
 	bezDet = lift(numerator(det(D)), R) / lift(denominator(det(D)),coefficientRing R);
     	bezDetR = lift(bezDet, R);
 	);    
