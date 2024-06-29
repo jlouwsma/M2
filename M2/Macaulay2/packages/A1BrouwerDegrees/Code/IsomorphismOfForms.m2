@@ -7,13 +7,13 @@ isIsomorphicFormQ (GrothendieckWittClass, GrothendieckWittClass) := Boolean => (
     if (not baseField(beta) === QQ) then error "second input must be a form defined over QQ";
     
     -- Check if the ranks agree
-    if (not numRows(alpha.matrix) == numRows(beta.matrix)) then return false;
+    if (numRows(alpha.matrix) != numRows(beta.matrix)) then return false;
     
     -- Check if the signatures (Hasse-Witt invariants at RR) agree
-    if (not signature(alpha) == signature(beta)) then return false;
+    if (signature(alpha) != signature(beta)) then return false;
     
     -- Check if the discriminants agree
-    if (not integralDiscriminant(alpha) == integralDiscriminant(beta)) then return false;
+    if (integralDiscriminant(alpha) != integralDiscriminant(beta)) then return false;
     
     -- Check if all the Hasse-Witt invariants agree
     PrimesToCheck := unique(relevantPrimes(alpha) | relevantPrimes(beta));
