@@ -58,7 +58,7 @@ numNegDiagEntries (Matrix) := (Matrix) => (A) -> (
 -- Note:  numPosEntries is *not* included as a method in the A1BrowerDegrees package
 
 numPosEntries = method()
-numPosEntries (GrothendieckWittClass) := ZZ => beta ->(
+numPosEntries (GrothendieckWittClass) := ZZ => beta -> (
     numPosDiagEntries(beta.matrix)
     )
 
@@ -67,7 +67,7 @@ numPosEntries (GrothendieckWittClass) := ZZ => beta ->(
 -- Note:  numNegEntries is *not* included as a method in the A1BrowerDegrees package
 
 numNegEntries = method()
-numNegEntries (GrothendieckWittClass) := ZZ => beta ->(
+numNegEntries (GrothendieckWittClass) := ZZ => beta -> (
     numNegDiagEntries(beta.matrix)
     )
 
@@ -75,7 +75,7 @@ numNegEntries (GrothendieckWittClass) := ZZ => beta ->(
 -- Output: The signature of beta
 
 signature = method()
-signature (GrothendieckWittClass) := ZZ => (beta) ->(
+signature (GrothendieckWittClass) := ZZ => (beta) -> (
     numPosEntries(beta) - numNegEntries(beta)
     )
 
