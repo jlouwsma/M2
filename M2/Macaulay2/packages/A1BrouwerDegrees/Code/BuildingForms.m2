@@ -121,7 +121,7 @@ PfisterForm(Ring,Sequence) := GrothendieckWittClass => (kk,L) -> (
     -- If there is just one entry L_0 return the form <1, -L_0>
     firstPfisterForm := diagonalForm(kk,(1,(-1)*L_0));
     if n == 1 then(
-	return firstPfisterForm
+	return firstPfisterForm;
 	);
     
     -- If n>1 iteratively multiply <1,-L_0>*<1,-L_1>*...
@@ -153,7 +153,7 @@ PfisterForm(InexactFieldFamily,Sequence) := GrothendieckWittClass => (kk,L) -> (
     -- If there is just one entry L_0 return the form <1, -L_0>
     firstPfisterForm := diagonalForm(kk,(1,(-1)*L_0));
     if n == 1 then(
-	return firstPfisterForm
+	return firstPfisterForm;
 	);
     
     -- If n>1 iteratively multiply <1,-L_0>*<1,-L_1>*...
