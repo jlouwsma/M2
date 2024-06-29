@@ -29,7 +29,6 @@ isHyperbolicQp (GrothendieckWittClass, ZZ) := Boolean => (beta, p) ->(
     -- At this stage, the rank and discriminant of our beta agrees with that of a hyperbolic form,
     -- so by e.g. Lam V.3.25 it suffices to check if their Hasse-Witt invariants agree
     if even rankForm then(
-	
 	m := sub(rankForm/2,ZZ);
 	
 	-- The Hasse-Witt invariant of mH:
@@ -66,19 +65,13 @@ anisotropicDimensionQp (GrothendieckWittClass, ZZ) := ZZ => (beta, p) ->(
 	if isPadicSquare(d,p) then return 4;
 	
 	return 2;
-       
 	);
     
     if odd rankForm then(
-	
 	c := (-1)^(rankForm*(rankForm+1)/2) * integralDiscriminant(beta);
-	
 	gamma := gwAdd(beta, diagonalForm(QQ,(c)));
-	
 	if isHyperbolicQp(gamma,p) then return 1;
-	
 	return 3
-	
 	);
     )
 
@@ -97,7 +90,6 @@ anisotropicDimensionQQ (GrothendieckWittClass) := ZZ => (beta) -> (
     if (isDegenerate(B)) then (error "form is degenerate");
     
     -- The anisotropic dimension of a form over Q is the maximum of its anisotropic dimensions at any of its completions
-    
     ListOfLocalAnistropicDimensions := {};
     
     -- The anisotropic dimension at RR is the absolute value of the signature of the form
@@ -109,9 +101,7 @@ anisotropicDimensionQQ (GrothendieckWittClass) := ZZ => (beta) -> (
     -- For the remaining local fields, we can just look at relevant primes
     for p in relevantPrimes(beta) do(
 	ListOfLocalAnistropicDimensions = append(ListOfLocalAnistropicDimensions, anisotropicDimensionQp(beta,p))
-	
 	);
-    
     max ListOfLocalAnistropicDimensions
     )
 
@@ -160,7 +150,6 @@ anisotropicDimension (Matrix) := (ZZ) => (A) -> (
 anisotropicDimension (GrothendieckWittClass) := (ZZ) => (alpha) -> (
     anisotropicDimension(alpha.matrix)
     )
-
 
 -- Input: A Grothendieck-Witt class alpha in GW(k), where k is the complex numbers, the real, the rationals or a finite field of characteristic not 2
 -- Output: An integer, the rank of the totally isotropic part of alpha
