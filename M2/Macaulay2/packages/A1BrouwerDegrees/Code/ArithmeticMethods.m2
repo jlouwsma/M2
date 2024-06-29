@@ -7,9 +7,7 @@
 
 squarefreePart = method()
 squarefreePart (ZZ) := (ZZ) => (n) -> (
-    if n == 0 then (
-        return 0;
-        );
+    if n == 0 then return 0;
     if n > 0 then (
         tableOfPrimeFactors := hashTable(factor(n));
         return product(apply(keys(tableOfPrimeFactors),p -> p^(tableOfPrimeFactors#p%2)));
@@ -29,9 +27,7 @@ squarefreePart (QQ) := (ZZ) => (n) -> (
 
 primeFactors = method()
 primeFactors (ZZ) := List => (n) -> (
-    if abs(n) == 1 then(
-	return {};
-	);
+    if abs(n) == 1 then return {};
     sort keys(hashTable(factor(abs(n))))
     )
 
@@ -186,7 +182,7 @@ rankGlobalAlgebra (List) := (ZZ) => (Endo) -> (
     
     -- Get the underlying field    
     kk := coefficientRing(ring(Endo#0));    
-    if not isField(kk) then(
+    if not isField(kk) then (
     	kk = toField(kk);
     	);
     
