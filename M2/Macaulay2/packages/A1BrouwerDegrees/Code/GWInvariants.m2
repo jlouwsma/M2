@@ -92,7 +92,7 @@ integralDiscriminant (GrothendieckWittClass) := (ZZ) => (beta) -> (
     rankForm:= numRows(B);
     kk:= ring B;
     
-    if not kk === QQ then (error "GrothendieckWittClass is not over QQ");
+    if not kk === QQ then error "GrothendieckWittClass is not over QQ";
     
     -- Take an integral diagonal representative for beta
     gamma := diagonalClass(beta);
@@ -148,7 +148,7 @@ HasseWittInvariant (List, ZZ) := ZZ => (L,p) -> (
 	   f = append(f,squarefreePart(x));
 	   );
        for i from 0 to len - 1 do (
-	   if not liftable(f_i,ZZ) then (error "Error:  Hilbert symbol evaluated at a non-integer");
+	   if not liftable(f_i,ZZ) then error "Hilbert symbol evaluated at a non-integer";
 	   );
        for i from 0 to len - 2 do (
        	   for j from i + 1 to len - 1 do (
