@@ -126,7 +126,7 @@ QQanisotropicDimension2 (GrothendieckWittClass) := (GrothendieckWittClass) => be
 	    	if basisES_i > 0 then (
 		    A_(0,i) = 0;
 		    )
-		else(
+		else (
 		    A_(0,i) = 1;
 		    );
 	    	);
@@ -143,7 +143,7 @@ QQanisotropicDimension2 (GrothendieckWittClass) := (GrothendieckWittClass) => be
 	    solnFound = true;
 	    break;
 	    )
-	else(
+	else (
 	    p = nextPrime(p+1);
 	    while member(p,S) do (
 		p = nextPrime(p+1);
