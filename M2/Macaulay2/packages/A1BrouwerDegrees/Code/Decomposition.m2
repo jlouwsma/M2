@@ -9,12 +9,12 @@ QQanisotropicDimension4 (GrothendieckWittClass) := (GrothendieckWittClass) => be
     
     -- If the signature is non-negative then return <1>
     if signature(beta) >= 0 then(
-	return gwClass(matrix(QQ,{{1}}))
+	return gwClass(matrix(QQ,{{1}}));
 	);
     
     -- Otherwise return <-1>
     if signature(beta) < 0 then(
-	return gwClass(matrix(QQ,{{-1}}))	        
+	return gwClass(matrix(QQ,{{-1}}));	        
         );	
     )
 
@@ -57,7 +57,7 @@ QQanisotropicDimension2 (GrothendieckWittClass) := (GrothendieckWittClass) => be
 
     -- Shortcut: if the form has anisotropic dimension 2 and the form is dimension 2, return the form itself
     if (n==2) then(
-        return beta
+        return beta;
      	);    
     
     -- Step 1: We want the Witt index to be 0 mod 4 in their terminology --- note they define the Witt index to be
@@ -102,7 +102,7 @@ QQanisotropicDimension2 (GrothendieckWittClass) := (GrothendieckWittClass) => be
 	-- Step 5b / 5f: 
 	W = matrix(W);
     	if (d < 0) then(
-	    if not (abs(signature(q)) == 2) then (error "signature isn't pm 2");
+	    if not (abs(signature(q)) == 2) then error "signature isn't pm 2";
 	    
 	    if (signature(q) == 2) then (
 		W = matrix(QQ,{{0}}) || W;
@@ -209,9 +209,7 @@ anisotropicPart (Matrix) := (Matrix) => (A) -> (
         error "Base field not supported; only implemented over QQ, RR, CC, and finite fields of characteristic not 2";
         );
     -- Ensure underlying matrix is symmetric
-    if (transpose(A) != A) then (
-        error "Underlying matrix is not symmetric";
-	);
+    if (transpose(A) != A) then error "Underlying matrix is not symmetric";
     -- Over CC, the anisotropic part is either the rank 0 form or the rank 1 form, depending on the anisotropic dimension
     if instance(k,ComplexField) then (
         if (anisotropicDimension(A)==0) then (
@@ -271,7 +269,7 @@ sumDecompositionVerbose (GrothendieckWittClass) := (GrothendieckWittClass, Strin
     kk := baseField(beta);
 
     if numRows(beta.matrix) == 0 then(
-	return (gwClass(diagonalMatrix(kk,{})),"empty form")
+	return (gwClass(diagonalMatrix(kk,{})),"empty form");
 	);
     
     outputString := "";
@@ -294,7 +292,7 @@ sumDecompositionVerbose (GrothendieckWittClass) := (GrothendieckWittClass, Strin
 	);
     
     -- Return a simplified form of beta
-    return (gwAdd(alpha,hyperbolicPart),outputString)
+    return (gwAdd(alpha,hyperbolicPart),outputString);
     )    
 
 -- Input: A Grothendieck-Witt class beta over a field k
