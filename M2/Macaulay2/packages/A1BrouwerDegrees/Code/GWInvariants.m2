@@ -76,8 +76,7 @@ numNegEntries (GrothendieckWittClass) := ZZ => beta ->(
 
 signature = method()
 signature (GrothendieckWittClass) := ZZ => (beta) ->(
-    sig := numPosEntries(beta) - numNegEntries(beta);
-    sig
+    numPosEntries(beta) - numNegEntries(beta)
     )
 
 ---------------------------
