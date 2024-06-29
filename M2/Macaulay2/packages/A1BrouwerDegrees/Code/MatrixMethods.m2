@@ -3,7 +3,7 @@
 -----------------------
 
 -- Input: A matrix
--- Output: True if the matrix is a square; false otherwise
+-- Output: True if the matrix is square; false otherwise
 
 isSquare = method()
 isSquare (Matrix) := Boolean => M -> (
@@ -11,7 +11,7 @@ isSquare (Matrix) := Boolean => M -> (
     )
 
 -- Input: A matrix
--- Output: True if the matrix is a square and symmetric; false otherwise
+-- Output: True if the matrix is square and symmetric; false otherwise
 
 isSquareAndSymmetric = method()
 isSquareAndSymmetric (Matrix) := Boolean => M -> (
