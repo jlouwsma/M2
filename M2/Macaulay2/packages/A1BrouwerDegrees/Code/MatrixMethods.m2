@@ -23,7 +23,6 @@ isSquareAndSymmetric (Matrix) := Boolean => M -> (
 
 isDegenerate = method()
 isDegenerate (Matrix) := Boolean => M ->(
-
     if numRows(M) == 0 then (
 	return false;
 	)
@@ -62,7 +61,6 @@ isDiagonal (Matrix) := Boolean => M -> (
     if not isSquare(M) then error "matrix is not a square";
 
     n := numRows(M);
-    
     for i from 0 to n-2 do (
 	for j from  i+1 to n-1 do (
 	    -- Search in the matrix entries that aren't on diagonal
@@ -173,7 +171,7 @@ congruenceDiagonalizeSimplify (Matrix) := (Matrix) => (AnonMut) -> (
     -- Over a finite field, we can diagonalize and replace every entry by 1 or a nonsquare representative
     else if (instance(k, GaloisField) and k.char != 2) then (
         nonSquareRep := sub(-1,k);
-        if (legendreBoolean(sub(-1,k))) then (
+        if legendreBoolean(sub(-1,k)) then (
 	    for i from 0 to (n-1) do (
 	        if (diagForm_(i,i) != 0 and (not legendreBoolean(diagForm_(i,i)))) then (
 	     	    nonSquareRep = diagForm_(i,i);
