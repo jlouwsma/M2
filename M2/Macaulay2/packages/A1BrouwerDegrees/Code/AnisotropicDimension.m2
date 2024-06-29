@@ -12,9 +12,9 @@ isHyperbolicQp (GrothendieckWittClass, ZZ) := Boolean => (beta, p) ->(
     rankForm := numRows(B);
     kk := ring B;
     
-    if (not (kk === QQ)) then (error "GrothendieckWittClass is not over QQ");
+    if not (kk === QQ) then error "GrothendieckWittClass is not over QQ";
     if not isPrime(p) then error "second argument must be a prime number";
-    if (isDegenerate(B)) then (error "form is degenerate");
+    if isDegenerate(B) then error "form is degenerate";
     
     -- Odd rank forms are not hyperbolic
     if odd rankForm then return false; 
@@ -52,9 +52,9 @@ anisotropicDimensionQp (GrothendieckWittClass, ZZ) := ZZ => (beta, p) ->(
     rankForm := numRows(B);
     kk := ring B;
     
-    if (not (kk === QQ)) then (error "GrothendieckWittClass is not over QQ");
+    if not (kk === QQ) then error "GrothendieckWittClass is not over QQ";
     if not isPrime(p) then error "second argument must be a prime number";
-    if (isDegenerate(B)) then (error "form is degenerate");
+    if isDegenerate(B) then error "form is degenerate";
     
     if even rankForm then(
 	-- If the form is hyperbolic it has no anisotropic part
@@ -63,7 +63,6 @@ anisotropicDimensionQp (GrothendieckWittClass, ZZ) := ZZ => (beta, p) ->(
 	-- Note Koprowski and Czogala use a signed version of the discriminant
 	d := (-1)^(rankForm*(rankForm-1)/2) * integralDiscriminant(beta);
 	if isPadicSquare(d,p) then return 4;
-	
 	return 2;
 	);
     
@@ -71,7 +70,7 @@ anisotropicDimensionQp (GrothendieckWittClass, ZZ) := ZZ => (beta, p) ->(
 	c := (-1)^(rankForm*(rankForm+1)/2) * integralDiscriminant(beta);
 	gamma := gwAdd(beta, diagonalForm(QQ,(c)));
 	if isHyperbolicQp(gamma,p) then return 1;
-	return 3
+	return 3;
 	);
     )
 
@@ -86,8 +85,8 @@ anisotropicDimensionQQ (GrothendieckWittClass) := ZZ => (beta) -> (
     rankForm := numRows(B);
     kk := ring B;
     
-    if (not (kk === QQ)) then (error "GrothendieckWittClass is not over QQ");
-    if (isDegenerate(B)) then (error "form is degenerate");
+    if not (kk === QQ) then error "GrothendieckWittClass is not over QQ";
+    if isDegenerate(B) then error "form is degenerate";
     
     -- The anisotropic dimension of a form over Q is the maximum of its anisotropic dimensions at any of its completions
     ListOfLocalAnistropicDimensions := {};
