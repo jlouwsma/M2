@@ -4,7 +4,7 @@
 -- Note: This is Koprowski/Rothkegel's Algorithm 5 in the case of QQ
 
 QQanisotropicDimension4 = method()
-QQanisotropicDimension4 (GrothendieckWittClass) := (GrothendieckWittClass) => beta ->(
+QQanisotropicDimension4 (GrothendieckWittClass) := (GrothendieckWittClass) => beta -> (
     if not (anisotropicDimensionQQ(beta) >= 4) then error "anisotropic dimension of inputted form is not >=4";
     
     -- If the signature is non-negative then return <1>
@@ -23,7 +23,7 @@ QQanisotropicDimension4 (GrothendieckWittClass) := (GrothendieckWittClass) => be
 
 -- Note: This is Koprowski/Rothkegel's Algorithm 7 in the case of QQ
 QQanisotropicDimension3 = method()
-QQanisotropicDimension3 (GrothendieckWittClass) := (GrothendieckWittClass) => beta ->(
+QQanisotropicDimension3 (GrothendieckWittClass) := (GrothendieckWittClass) => beta -> (
     d := integralDiscriminant(beta);
     
     -- Build lists of primes where the p-adic valuation of the discriminant is even or is odd
@@ -52,7 +52,7 @@ QQanisotropicDimension3 (GrothendieckWittClass) := (GrothendieckWittClass) => be
 
 -- Constructs the anisotropic part of a form with anisotropic dimension 2
 QQanisotropicDimension2 = method()
-QQanisotropicDimension2 (GrothendieckWittClass) := (GrothendieckWittClass) => beta ->(
+QQanisotropicDimension2 (GrothendieckWittClass) := (GrothendieckWittClass) => beta -> (
     n := numRows beta.matrix;
 
     -- Shortcut: if the form has anisotropic dimension 2 and the form is dimension 2, return the form itself
@@ -261,7 +261,7 @@ anisotropicPart (GrothendieckWittClass) := (GrothendieckWittClass) => (alpha) ->
 -- Input: A Grothendieck-Witt class beta over a field kk
 -- Output: A simplified diagonal representative of beta
 sumDecompositionVerbose = method()
-sumDecompositionVerbose (GrothendieckWittClass) := (GrothendieckWittClass, String) => beta ->(
+sumDecompositionVerbose (GrothendieckWittClass) := (GrothendieckWittClass, String) => beta -> (
     -- Get base field of beta
     kk := baseField(beta);
 
