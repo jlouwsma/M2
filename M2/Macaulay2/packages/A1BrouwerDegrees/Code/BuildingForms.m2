@@ -25,7 +25,7 @@ diagonalForm(Ring, Sequence) := GrothendieckWittClass => (kk,L) -> (
     -- Build an n x n identity matrix
     A := mutableIdentity(kk, n);
     
-    for i from 0 to (n-1) do(
+    for i from 0 to (n-1) do (
 	A_(i,i) = sub(L_i,kk);
 	);
     
@@ -52,7 +52,7 @@ diagonalForm(InexactFieldFamily, Sequence) := GrothendieckWittClass => (kk,L) ->
     -- Build an n x n identity matrix
     A := mutableIdentity(kk, n);
     
-    for i from 0 to (n - 1) do(
+    for i from 0 to (n - 1) do (
 	A_(i,i) = sub(L_i,kk);
 	);
     
@@ -74,7 +74,7 @@ hyperbolicForm(Ring,ZZ) := GrothendieckWittClass => (kk,n) -> (
     H := matrix(kk,{{1,0},{0,-1}});
     k := sub(n/2,ZZ);
     outputMatrix := diagonalMatrix(kk,{});
-    for i from 0 to k - 1 do(
+    for i from 0 to k - 1 do (
         outputMatrix = outputMatrix ++ H;
         );
     gwClass(outputMatrix)
@@ -90,7 +90,7 @@ hyperbolicForm(InexactFieldFamily,ZZ) := GrothendieckWittClass => (kk,n) -> (
     H := matrix(kk,{{1,0},{0,-1}});
     k := sub(n/2,ZZ);
     outputMatrix := diagonalMatrix(kk,{});
-    for i from 0 to k - 1 do(
+    for i from 0 to k - 1 do (
         outputMatrix = outputMatrix ++ H;
         );
     gwClass(outputMatrix)
@@ -119,9 +119,7 @@ PfisterForm(Ring,Sequence) := GrothendieckWittClass => (kk,L) -> (
     
     -- If there is just one entry L_0 return the form <1, -L_0>
     firstPfisterForm := diagonalForm(kk,(1,(-1)*L_0));
-    if n == 1 then(
-	return firstPfisterForm;
-	);
+    if n == 1 then return firstPfisterForm;
     
     -- If n>1 iteratively multiply <1,-L_0>*<1,-L_1>*...
     outputForm := firstPfisterForm;
@@ -151,13 +149,11 @@ PfisterForm(InexactFieldFamily,Sequence) := GrothendieckWittClass => (kk,L) -> (
     
     -- If there is just one entry L_0 return the form <1, -L_0>
     firstPfisterForm := diagonalForm(kk,(1,(-1)*L_0));
-    if n == 1 then(
-	return firstPfisterForm;
-	);
+    if n == 1 then return firstPfisterForm;
     
     -- If n>1 iteratively multiply <1,-L_0>*<1,-L_1>*...
     outputForm := firstPfisterForm;
-    for i from 1 to (n-1) do(
+    for i from 1 to (n-1) do (
 	ithPfister := diagonalForm(kk,(1,(-1)*L_i));
 	outputForm = gwMultiply(outputForm,ithPfister);
 	);
