@@ -50,7 +50,6 @@ isUpperLeftTriangular (Matrix) := Boolean => M -> (
 		if not M_(i,j) == 0 then(
 		    return false
 		    );
-		
             );
         );
     true
