@@ -6,20 +6,6 @@
 -- Output: Smallest magnitude integer in its square class
 
 squarefreePart = method()
-squarefreePart (QQ) := (ZZ) => (n) -> (
-    if n == 0 then (
-        return 0;
-        );
-    if n > 0 then (
-        tableOfPrimeFactorsQQ := hashTable(factor(numerator(n)*denominator(n)));
-        return product(apply(keys(tableOfPrimeFactorsQQ),p -> p^(tableOfPrimeFactorsQQ#p%2)));
-        );
-    if n < 0 then (
-        tableOfPrimeFactorsQQNeg := hashTable(factor(numerator(-n)*denominator(-n)));
-        return -product(apply(keys(tableOfPrimeFactorsQQNeg),p -> p^(tableOfPrimeFactorsQQNeg#p%2)));
-        );
-    )
-
 squarefreePart (ZZ) := (ZZ) => (n) -> (
     if n == 0 then (
         return 0;
@@ -32,6 +18,10 @@ squarefreePart (ZZ) := (ZZ) => (n) -> (
         tableOfPrimeFactorsNeg := hashTable(factor(-n));
         return -product(apply(keys(tableOfPrimeFactorsNeg),p -> p^(tableOfPrimeFactorsNeg#p%2)));
         );
+    )
+
+squarefreePart (QQ) := (ZZ) => (n) -> (
+    squarefreePart(numerator(n)*denominator(n))
     )
 
 -- Input: An integer or rational number n
