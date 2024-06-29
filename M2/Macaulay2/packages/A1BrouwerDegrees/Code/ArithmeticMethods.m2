@@ -8,29 +8,29 @@
 squarefreePart = method()
 squarefreePart (QQ) := (ZZ) => (n) -> (
     if n == 0 then (
-        return 0
+        return 0;
         );
     if n > 0 then (
         tableOfPrimeFactorsQQ := hashTable(factor(numerator(n)*denominator(n)));
-        return product(apply(keys(tableOfPrimeFactorsQQ),p -> p^(tableOfPrimeFactorsQQ#p%2)))
+        return product(apply(keys(tableOfPrimeFactorsQQ),p -> p^(tableOfPrimeFactorsQQ#p%2)));
         );
     if n < 0 then (
         tableOfPrimeFactorsQQNeg := hashTable(factor(numerator(-n)*denominator(-n)));
-        return -product(apply(keys(tableOfPrimeFactorsQQNeg),p -> p^(tableOfPrimeFactorsQQNeg#p%2)))
+        return -product(apply(keys(tableOfPrimeFactorsQQNeg),p -> p^(tableOfPrimeFactorsQQNeg#p%2)));
         );
     )
 
 squarefreePart (ZZ) := (ZZ) => (n) -> (
     if n == 0 then (
-        return 0
+        return 0;
         );
     if n > 0 then (
         tableOfPrimeFactors := hashTable(factor(n));
-        return product(apply(keys(tableOfPrimeFactors),p -> p^(tableOfPrimeFactors#p%2)))
+        return product(apply(keys(tableOfPrimeFactors),p -> p^(tableOfPrimeFactors#p%2)));
         );
     if n < 0 then (
         tableOfPrimeFactorsNeg := hashTable(factor(-n));
-        return -product(apply(keys(tableOfPrimeFactorsNeg),p -> p^(tableOfPrimeFactorsNeg#p%2)))
+        return -product(apply(keys(tableOfPrimeFactorsNeg),p -> p^(tableOfPrimeFactorsNeg#p%2)));
         );
     )
 
@@ -74,7 +74,7 @@ padicValuation (ZZ, ZZ) := (ZZ) => (n, p) -> (
 padicValuation (QQ, ZZ) := (ZZ) => (q, p) -> (
     num := numerator(q);
     denom := denominator(q);
-    (padicValuation(num,p) - padicValuation(denom,p))
+    padicValuation(num,p) - padicValuation(denom,p)
     )
 
 -- Input: An element a of a finite field
@@ -213,7 +213,7 @@ rankGlobalAlgebra (List) := (ZZ) => (Endo) -> (
     
     -- First check if the morphism does not have isolated zeroes
     if dim ideal(Endo) > 0  then (
-	error "Error: ideal is not zero-dimensional";
+	error "ideal is not zero-dimensional";
 	);
     
     -- Get the rank of S/ideal(Endo) as a kk-vector space
