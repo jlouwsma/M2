@@ -25,8 +25,6 @@ gwClass (Matrix) := GrothendieckWittClass => M -> (
 -- This allows us to extract the matrix from a class
 matrix GrothendieckWittClass := Matrix => beta -> beta.matrix
 
-
-
 -- Check whether a matrix defines a nondegenerate symmeteric bilinear form
 isWellDefined (Matrix) := Boolean => M -> (
     
@@ -55,7 +53,6 @@ isWellDefined (Matrix) := Boolean => M -> (
 	<< "-- Package does not support base fields of characteristic two" <<endl;
 	return false;
 	);
-
     true
     )
 
@@ -91,7 +88,6 @@ gwAdd(GrothendieckWittClass, GrothendieckWittClass) := GrothendieckWittClass => 
 -- Output: The tensor product of beta and gamma
 
 gwMultiply = method()
-
 gwMultiply(GrothendieckWittClass, GrothendieckWittClass) := GrothendieckWittClass => (beta, gamma) -> (
     Kb := baseField(beta);
     Kg := baseField(gamma);
