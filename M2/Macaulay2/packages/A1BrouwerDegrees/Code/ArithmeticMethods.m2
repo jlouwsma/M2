@@ -44,7 +44,7 @@ primeFactors (ZZ) := List => (n) -> (
 	);
     
     sort keys(hashTable(factor(abs(n))))
-    );
+    )
 
 primeFactors (QQ) := List => (n) -> (
     if (not liftable(n,ZZ) == true) then(
@@ -69,7 +69,7 @@ padicValuation (ZZ, ZZ) := (ZZ) => (n, p) -> (
 	a = 0;
 	);
     a
-    );
+    )
 
 -- Input: A rational number q and a prime number p
 -- Output: the p-adic valuation of q
@@ -77,7 +77,7 @@ padicValuation (QQ, ZZ) := (ZZ) => (q, p) -> (
     num := numerator(q);
     denom := denominator(q);
     (padicValuation(num,p) - padicValuation(denom,p))
-    );
+    )
 
 -- Input: An element a of a finite field
 -- Output: True if a is a square, false otherwise
@@ -113,7 +113,7 @@ squareSymbol(ZZ, ZZ) := (ZZ) => (a, p) -> (
 	ans = 0;
 	);
     ans
-    );
+    )
 
 ------------------------------
 -- P-adic methods
@@ -157,14 +157,14 @@ equalUptoPadicSquare (ZZ, ZZ, ZZ) := (Boolean) => (a, b, p) -> (
 	    return (c1 == 1); 
 	    );
         );
-    );
+    )
 
 -- Boolean to check if an integer a is a p-adic square
 
 isPadicSquare = method()
 isPadicSquare (ZZ, ZZ) := (Boolean) => (a, p) -> (
     equalUptoPadicSquare(a,1,p)
-    );
+    )
 
 ------------------------------
 -- Commutative algebra methods
