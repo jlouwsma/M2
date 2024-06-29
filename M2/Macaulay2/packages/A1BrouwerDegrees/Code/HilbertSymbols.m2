@@ -66,7 +66,7 @@ HilbertSymbol (ZZ, ZZ, ZZ) := (ZZ) => (a, b, p) -> (
 	alpha = (alpha % 2);
 	beta = (beta % 2);
 	d := sub(((u-1)/2)*((v-1)/2) + alpha*((v^2-1)/8) + beta*((u^2-1)/8),ZZ);
-	return ((-1)^d)
+	return ((-1)^d);
 	);
     )
 
