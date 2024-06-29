@@ -7,7 +7,7 @@
 -- Notes: Koprowski/Czogala Algorithm 6
 
 isHyperbolicQp = method()
-isHyperbolicQp (GrothendieckWittClass, ZZ) := Boolean => (beta, p) ->(
+isHyperbolicQp (GrothendieckWittClass, ZZ) := Boolean => (beta, p) -> (
     B := beta.matrix;
     rankForm := numRows(B);
     kk := ring B;
@@ -47,7 +47,7 @@ isHyperbolicQp (GrothendieckWittClass, ZZ) := Boolean => (beta, p) ->(
 -- This is an implementation of Koprowski/Czogala Algorithm 8
 
 anisotropicDimensionQp = method()
-anisotropicDimensionQp (GrothendieckWittClass, ZZ) := ZZ => (beta, p) ->(
+anisotropicDimensionQp (GrothendieckWittClass, ZZ) := ZZ => (beta, p) -> (
     B := beta.matrix;
     rankForm := numRows(B);
     kk := ring B;
