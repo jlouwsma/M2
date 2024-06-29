@@ -23,8 +23,8 @@ isHyperbolicQp (GrothendieckWittClass, ZZ) := Boolean => (beta, p) ->(
     -- Note that Koprowski and Czogala are using a different, signed definition of the discriminant
     d := (-1)^(rankForm*(rankForm-1)/2) *integralDiscriminant(beta);
     
-    -- If this discriminant is not a square in Q_p then return false
-    if not isPadicSquare(d,p) then return false;
+    -- If this discriminant is not a square in Q_p then  false
+    if not isPadicSquare(d,p) then  false;
     
     -- At this stage, the rank and discriminant of our beta agrees with that of a hyperbolic form,
     -- so by e.g. Lam V.3.25 it suffices to check if their Hasse-Witt invariants agree
@@ -115,9 +115,7 @@ anisotropicDimension (Matrix) := (ZZ) => (A) -> (
         error "Base field not supported; only implemented over QQ, RR, CC, and finite fields of characteristic not 2";
         );
     -- Ensure matrix is symmetric
-    if (transpose(A) != A) then (
-        error "Matrix is not symmetric";
-	);
+    if (transpose(A) != A) then error "Matrix is not symmetric";
     -- Over CC, the anisotropic dimension is 0 or 1 depending on the parity of number of nonzero diagonal entries
     if instance(k,ComplexField) then (
         return (rank(A)%2);
