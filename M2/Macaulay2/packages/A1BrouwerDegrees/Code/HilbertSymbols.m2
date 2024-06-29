@@ -9,9 +9,7 @@ HilbertSymbolReal (QQ, QQ) := (ZZ) => (a, b) -> (
 	return -1;
 	)
     else (
-	if (a>0 or b>0) then (
-	    return 1;
-	    );
+	return 1;
 	);
     )
 
@@ -45,17 +43,17 @@ HilbertSymbol (ZZ, ZZ, ZZ) := (ZZ) => (a, b, p) -> (
     v := sub(b/p^beta, ZZ);
     
     -- If epsilon(p) = 0
-    if (p % 4 == 1) then(
+    if (p % 4 == 1) then (
 	return ((squareSymbol(u,p))^beta * (squareSymbol(v,p))^alpha);
 	);
     
     -- If epsilon(p) = 1
-    if (p % 4 == 3) then(
+    if (p % 4 == 3) then (
 	return ((-1)^(alpha*beta))*(((squareSymbol(u,p))^beta) * ((squareSymbol(v,p))^alpha));
 	);
     
     -- Finally if p=2
-    if p == 2 then(
+    if p == 2 then (
 	-- The reductions of u, v must be mod 8, as the calculation of (u-1)/2, (u^2-1)/8 below 
 	-- depends on 
 	-- the mod 8 reduction
