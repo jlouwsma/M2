@@ -24,7 +24,7 @@ isSquareAndSymmetric (Matrix) := Boolean => M -> (
 isDegenerate = method()
 isDegenerate (Matrix) := Boolean => M ->(
 
-    if numRows(M) == 0 then(
+    if numRows(M) == 0 then (
 	return false;
 	)
     else(
@@ -44,12 +44,10 @@ isUpperLeftTriangular = method()
 isUpperLeftTriangular (Matrix) := Boolean => M -> (
     if not isSquare(M) then error "matrix isn't square";
     n := numRows(M);
-    for i from 1 to n - 1 do(
-	for j from 0 to i - 1 do(
+    for i from 1 to n - 1 do (
+	for j from 0 to i - 1 do (
     	-- If any entry in this range is nonzero then the matrix isn't upper left triangular
-		if not M_(i,j) == 0 then(
-		    return false;
-		    );
+		if not M_(i,j) == 0 then return false;
             );
         );
     true
@@ -65,16 +63,12 @@ isDiagonal (Matrix) := Boolean => M -> (
 
     n := numRows(M);
     
-    for i from 0 to n-2 do(
-	for j from  i+1 to n-1 do(
-	    
+    for i from 0 to n-2 do (
+	for j from  i+1 to n-1 do (
 	    -- Search in the matrix entries that aren't on diagonal
-	    if i != j  then(
-		
+	    if i != j  then (
 		-- If any entry off diagonal  is nonzero then the matrix isn't diagonal
-		if  M_(i,j) != 0 or M_(j,i) != 0  then(
-		    return false;
-		    );
+		if  M_(i,j) != 0 or M_(j,i) != 0 then return false;
 		);
             );
         );
@@ -91,9 +85,7 @@ congruenceDiagonalize (Matrix) := (Matrix) => (AnonMut) -> (
     if not isSquareAndSymmetric(AnonMut) then error "matrix is not symmetric";
     
     -- If the matrix is already diagonal then return it
-    if isDiagonal(AnonMut) then(
-	return AnonMut;
-	);
+    if isDiagonal(AnonMut) then return AnonMut;
     
     -- Otherwise we iterate through columns and rows under the diagonal, and perform row operations followed by the corresponding
     -- transpose operation on columns in order to reduce to a diagonal matrix congruent to the original
