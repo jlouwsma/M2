@@ -15,23 +15,23 @@ HilbertSymbolReal (QQ, QQ) := (ZZ) => (a, b) -> (
 	    return 1;
 	    );
 	);
-    );
+    )
 
 HilbertSymbolReal (QQ, ZZ) := (ZZ) => (a,b) -> (
     b1 := b/1;
     HilbertSymbolReal(a, b1)
-    );
+    )
 
 HilbertSymbolReal (ZZ, QQ) := (ZZ) => (a,b) -> (
     a1 := a/1;
     HilbertSymbolReal(a1, b)
-    );
+    )
 
 HilbertSymbolReal (ZZ, ZZ) := (ZZ) => (a,b) -> (
     a1:= a/1;
     b1:= b/1;
     HilbertSymbolReal(a1, b1)
-    );
+    )
 
 
 -- Input: Any integers a and b and a prime p. The integers a and b are considered as elements of QQ_p.
@@ -71,7 +71,7 @@ HilbertSymbol (ZZ, ZZ, ZZ) := (ZZ) => (a, b, p) -> (
 	return ((-1)^d)
 	);
     
-    );
+    )
 
 HilbertSymbol (QQ, QQ, ZZ) := (ZZ) => (a, b, p) -> (
  
@@ -93,14 +93,14 @@ HilbertSymbol (QQ, QQ, ZZ) := (ZZ) => (a, b, p) -> (
     a = sub(a,ZZ);
     b = sub(b,ZZ);
     return HilbertSymbol(a,b,p);
-    );
+    )
 
 HilbertSymbol (ZZ, QQ, ZZ) := (ZZ) => (a, b, p) -> (
     a1:=a/1;
     HilbertSymbol(a1,b, p)
-    );
+    )
 
 HilbertSymbol (QQ, ZZ, ZZ) := (ZZ) => (a, b, p) -> (
    b1:=b/1;
    HilbertSymbol(a, b1, p)
-   );
+   )
