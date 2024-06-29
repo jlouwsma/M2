@@ -65,7 +65,6 @@ diagonalForm(InexactFieldFamily, Sequence) := GrothendieckWittClass => (kk,L) ->
 -- Output: An even number, giving an optional rank n for a totally hyperbolic form
 
 hyperbolicForm = method()
-
 hyperbolicForm(Ring) := GrothendieckWittClass => (kk) -> (
     gwClass(matrix(kk,{{1,0},{0,-1}}))
     )
@@ -131,7 +130,6 @@ PfisterForm(Ring,Sequence) := GrothendieckWittClass => (kk,L) -> (
 	ithPfister := diagonalForm(kk,(1,(-1)*L_i));
 	outputForm = gwMultiply(outputForm,ithPfister);
 	);
-    
     outputForm
     )
 
@@ -164,6 +162,5 @@ PfisterForm(InexactFieldFamily,Sequence) := GrothendieckWittClass => (kk,L) -> (
 	ithPfister := diagonalForm(kk,(1,(-1)*L_i));
 	outputForm = gwMultiply(outputForm,ithPfister);
 	);
-    
     outputForm
     )
