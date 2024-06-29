@@ -37,7 +37,7 @@ isHyperbolicQp (GrothendieckWittClass, ZZ) := Boolean => (beta, p) ->(
 	HasseWittBeta := HasseWittInvariant(beta,p);
 	return (HasseWittHyperbolicForm == HasseWittBeta);
 	);
-    );
+    )
 
 -- Input: A Grothendieck-Witt class beta and an integer
 -- Output: An integer, the rank of the anisotropic part of beta over Q_p
@@ -80,7 +80,7 @@ anisotropicDimensionQp (GrothendieckWittClass, ZZ) := ZZ => (beta, p) ->(
 	return 3
 	
 	);
-    );
+    )
 
 -- Input: A Grothendieck-Witt class beta in GW(QQ)
 -- Output: An integer, the rank of the anisotropic part of beta
@@ -113,7 +113,7 @@ anisotropicDimensionQQ (GrothendieckWittClass) := ZZ => (beta) -> (
 	);
     
     max ListOfLocalAnistropicDimensions
-    );
+    )
 
 -- Input: A symmetric matrix representing a quadratic form or a GrothendieckWittClass; over QQ, RR, CC, or a finite field of characteristic not 2
 -- Output: An integer, the rank of the anisotropic part of beta
@@ -155,11 +155,11 @@ anisotropicDimension (Matrix) := (ZZ) => (A) -> (
             return 2;
             );
         );
-    );
+    )
 
 anisotropicDimension (GrothendieckWittClass) := (ZZ) => (alpha) -> (
     anisotropicDimension(alpha.matrix)
-    );
+    )
 
 
 -- Input: A Grothendieck-Witt class alpha in GW(k), where k is the complex numbers, the real, the rationals or a finite field of characteristic not 2
@@ -169,4 +169,4 @@ WittIndex = method()
 WittIndex (GrothendieckWittClass) := (ZZ) => (alpha) -> (
     n := numRows(alpha.matrix);
     sub((n - anisotropicDimension(alpha))/2,ZZ)
-    );
+    )
