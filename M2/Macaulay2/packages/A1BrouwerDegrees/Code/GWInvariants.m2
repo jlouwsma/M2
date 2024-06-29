@@ -60,7 +60,7 @@ numNegDiagEntries (Matrix) := (Matrix) => (A) -> (
 numPosEntries = method()
 numPosEntries (GrothendieckWittClass) := ZZ => beta ->(
     numPosDiagEntries(beta.matrix)
-    );
+    )
 
 -- Input: A Grothendieck-Witt class beta defined over QQ or RR
 -- Output: The number of negative entries on the diagonal of a diagonal matrix representing the Grothendieck-Witt class
@@ -69,7 +69,7 @@ numPosEntries (GrothendieckWittClass) := ZZ => beta ->(
 numNegEntries = method()
 numNegEntries (GrothendieckWittClass) := ZZ => beta ->(
     numNegDiagEntries(beta.matrix)
-    );
+    )
 
 -- Input: A Grothendieck-Witt class beta defined over QQ or RR
 -- Output: The signature of beta
@@ -78,7 +78,7 @@ signature = method()
 signature (GrothendieckWittClass) := ZZ => (beta) ->(
     sig := numPosEntries(beta) - numNegEntries(beta);
     sig
-    );
+    )
 
 ---------------------------
 -- Comparing forms over QQ
@@ -105,7 +105,7 @@ integralDiscriminant (GrothendieckWittClass) := (ZZ) => (beta) -> (
 	);
     
     sub(squarefreePart(discrimForm),ZZ)
-    );
+    )
 
 -- Input: A Grothendieck-Witt class beta defined over QQ
 -- Output: The smallest list of primes that divide its discriminant
@@ -128,7 +128,7 @@ relevantPrimes (GrothendieckWittClass) := List => (beta) -> (
 	);
     
     L
-    );
+    )
 
 -- Two Q forms over Q_p are isomorphic if they have same rank, same discriminant, and same Hasse-Witt invariant   
 
@@ -160,7 +160,7 @@ HasseWittInvariant (List, ZZ) := ZZ => (L,p) -> (
 	   );
        
        a
-    );
+    )
 
 HasseWittInvariant(GrothendieckWittClass, ZZ) := ZZ => (beta,p) -> (
     kk := baseField beta;
