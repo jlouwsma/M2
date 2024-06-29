@@ -126,7 +126,6 @@ relevantPrimes (GrothendieckWittClass) := List => (beta) -> (
     for x in D do(
 	L = unique(L | primeFactors(sub(x,ZZ)));
 	);
-    
     L
     )
 
@@ -149,7 +148,6 @@ HasseWittInvariant (List, ZZ) := ZZ => (L,p) -> (
        for x in L do(
 	   f = append(f,squarefreePart(x));
 	   );
-       
        for i from 0 to len - 1 do (
 	   if not liftable(f_i,ZZ) then (error "Error:  Hilbert symbol evaluated at a non-integer");
 	   );
@@ -158,7 +156,6 @@ HasseWittInvariant (List, ZZ) := ZZ => (L,p) -> (
 	       a = a * HilbertSymbol(f_i, f_j, p);
 	       );
 	   );
-       
        a
     )
 
