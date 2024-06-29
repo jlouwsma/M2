@@ -26,7 +26,7 @@ globalA1Degree (List) := (GrothendieckWittClass) => (Endo) -> (
     if dim ideal(Endo) > 0  then error "morphism does not have isolated zeroes";
     
     -- Check the number of variables matches the number of polynomials
-    if not #(gens S) == n then error "the number of variables does not match the number of polynomials.";
+    if #(gens S) != n then error "the number of variables does not match the number of polynomials.";
     
     -- If the field is CC, just output gwClass of an identity matrix of rank = rankAlgebra
     if instance(kk,ComplexField) then (
@@ -164,7 +164,7 @@ localA1Degree (List, Ideal) := (GrothendieckWittClass) => (Endo,p) -> (
     if dim ideal(Endo) > 0  then error "morphism does not have isolated zeroes";
     
     -- Check the number of variables matches the number of polynomials
-    if not #(gens S) == n then error "the number of variables does not match the number of polynomials.";
+    if #(gens S) != n then error "the number of variables does not match the number of polynomials.";
     
     -- If the field is CC, just output gwClass of an identity matrix of rank = localFormRank
     if instance(kk,ComplexField) then (
