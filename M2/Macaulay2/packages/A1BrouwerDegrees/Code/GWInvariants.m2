@@ -16,10 +16,10 @@ rank (GrothendieckWittClass) := (ZZ) => (alpha) -> (
 numPosDiagEntries = method()
 numPosDiagEntries (Matrix) := (Matrix) => (A) -> (
     k := ring A;
-    if not (instance(k,RealField) or k === QQ) then(
+    if not (instance(k,RealField) or k === QQ) then (
         error "Only implemented over QQ and RR";
         );
-    if not isDiagonal(A) then(
+    if not isDiagonal(A) then (
         A = congruenceDiagonalize(A);
         );
     posDiagEntries := 0;
@@ -38,10 +38,10 @@ numPosDiagEntries (Matrix) := (Matrix) => (A) -> (
 numNegDiagEntries = method()
 numNegDiagEntries (Matrix) := (Matrix) => (A) -> (
     k := ring A;
-    if not (instance(k,RealField) or k === QQ) then(
+    if not (instance(k,RealField) or k === QQ) then (
         error "Only implemented over QQ and RR";
         );
-    if not isDiagonal(A) then(
+    if not isDiagonal(A) then (
         A = congruenceDiagonalize(A);
         );
     negDiagEntries := 0;
@@ -99,7 +99,7 @@ integralDiscriminant (GrothendieckWittClass) := (ZZ) => (beta) -> (
     G := gamma.matrix;
     
     discrimForm:= 1;
-    for i from 0 to (rankForm-1) do(
+    for i from 0 to (rankForm-1) do (
 	discrimForm = discrimForm * (G_(i,i));
 	);
     
@@ -122,7 +122,7 @@ relevantPrimes (GrothendieckWittClass) := List => (beta) -> (
     L := {};
     
     -- Append all the prime factors of each of the entries appearing on a diagonal
-    for x in D do(
+    for x in D do (
 	L = unique(L | primeFactors(sub(x,ZZ)));
 	);
     L
@@ -144,7 +144,7 @@ HasseWittInvariant (List, ZZ) := ZZ => (L,p) -> (
        
        -- Replace every entry of L with its squarefree part so we can be sure we're evaluating at integers
        f := {};
-       for x in L do(
+       for x in L do (
 	   f = append(f,squarefreePart(x));
 	   );
        for i from 0 to len - 1 do (
