@@ -22,7 +22,7 @@ isSquareAndSymmetric (Matrix) := Boolean => M -> (
 -- Output: True if the matrix represents a degenerate bilinear form; false otherwise
 
 isDegenerate = method()
-isDegenerate (Matrix) := Boolean => M ->(
+isDegenerate (Matrix) := Boolean => M -> (
     if numRows(M) == 0 then (
 	return false;
 	)
@@ -32,7 +32,7 @@ isDegenerate (Matrix) := Boolean => M ->(
     )
 
 isNondegenerate = method()
-isNondegenerate (Matrix) := Boolean => M ->(
+isNondegenerate (Matrix) := Boolean => M -> (
     not isDegenerate(M)
     )
 
