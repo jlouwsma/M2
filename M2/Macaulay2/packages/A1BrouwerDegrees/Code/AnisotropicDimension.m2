@@ -23,8 +23,8 @@ isHyperbolicQp (GrothendieckWittClass, ZZ) := Boolean => (beta, p) ->(
     -- Note that Koprowski and Czogala are using a different, signed definition of the discriminant
     d := (-1)^(rankForm*(rankForm-1)/2) *integralDiscriminant(beta);
     
-    -- If this discriminant is not a square in Q_p then  false
-    if not isPadicSquare(d,p) then  false;
+    -- If this discriminant is not a square in Q_p then return false
+    if not isPadicSquare(d,p) then return false;
     
     -- At this stage, the rank and discriminant of our beta agrees with that of a hyperbolic form,
     -- so by e.g. Lam V.3.25 it suffices to check if their Hasse-Witt invariants agree
