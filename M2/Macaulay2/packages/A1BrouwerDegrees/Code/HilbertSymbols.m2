@@ -1,5 +1,3 @@
-
-
 -- Over k = R, the real symbol is 1 if either a or b is positive, and -1 if they are both negative.
 -- See Serre, III Theorem 1
 
