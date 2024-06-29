@@ -75,12 +75,12 @@ gwAdd(GrothendieckWittClass, GrothendieckWittClass) := GrothendieckWittClass => 
     -- Galois field case
     if instance(Kb, GaloisField) and instance(Kg, GaloisField) then (
 	-- Returns an error if the underlying fields of the two classes beta and gamma are different
-	if not Kb.order == Kg.order  then error "Error: these classes have different underlying fields";
-	return gwClass(beta.matrix ++ substitute(gamma.matrix,Kb))
+	if not Kb.order == Kg.order  then error "these classes have different underlying fields";
+	return gwClass(beta.matrix ++ substitute(gamma.matrix,Kb));
 	);
     
     -- remaining cases
-    if not Kb === Kg then error "Error: these classes have different underlying fields";
+    if not Kb === Kg then error "these classes have different underlying fields";
     gwClass(beta.matrix ++ gamma.matrix)
     )
 
@@ -95,11 +95,11 @@ gwMultiply(GrothendieckWittClass, GrothendieckWittClass) := GrothendieckWittClas
     -- Galois field case
     if instance(Kb, GaloisField) and instance(Kg, GaloisField) then (
 	-- Returns an error if the underlying fields of the two classes beta and gamma are different
-	if not Kb.order == Kg.order  then error "Error: these classes have different underlying fields";
-	return gwClass(beta.matrix ** substitute(gamma.matrix,Kb))
+	if not Kb.order == Kg.order  then error "these classes have different underlying fields";
+	return gwClass(beta.matrix ** substitute(gamma.matrix,Kb));
 	);
     
     -- remaining cases
-    if not Kb === Kg then error "Error: these classes have different underlying fields";
+    if not Kb === Kg then error "these classes have different underlying fields";
     gwClass(beta.matrix ** gamma.matrix)
     )
