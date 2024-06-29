@@ -28,7 +28,7 @@ diagonalEntries (GrothendieckWittClass) := (List) => (beta) -> (
     L := {};
     n := numRows M;
     
-    for i from 0 to (n-1) do(
+    for i from 0 to (n-1) do (
 	L = append(L, M_(i,i));
 	);
     L
