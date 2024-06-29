@@ -104,15 +104,15 @@ hyperbolicForm(InexactFieldFamily,ZZ) := GrothendieckWittClass => (kk,n) -> (
 PfisterForm = method()
 PfisterForm(Ring,RingElement) := GrothendieckWittClass => (kk,a) -> (
     diagonalForm(kk,(1,(-1)*a))
-    );
+    )
 
 PfisterForm(Ring,ZZ) := GrothendieckWittClass => (kk,a) -> (
     diagonalForm(kk,(1,(-1)*a))
-    );
+    )
 
 PfisterForm(Ring,QQ) := GrothendieckWittClass => (kk,a) -> (
     diagonalForm(kk,(1,(-1)*a))
-    );
+    )
 
 PfisterForm(Ring,Sequence) := GrothendieckWittClass => (kk,L) -> (
     -- Get the length of the input sequence
@@ -137,15 +137,15 @@ PfisterForm(Ring,Sequence) := GrothendieckWittClass => (kk,L) -> (
 
 PfisterForm(InexactFieldFamily,RingElement) := GrothendieckWittClass => (kk,a) -> (
     diagonalForm(kk,(1,(-1)*a))
-    );
+    )
 
 PfisterForm(InexactFieldFamily,ZZ) := GrothendieckWittClass => (kk,a) -> (
     diagonalForm(kk,(1,(-1)*a))
-    );
+    )
 
 PfisterForm(InexactFieldFamily,QQ) := GrothendieckWittClass => (kk,a) -> (
     diagonalForm(kk,(1,(-1)*a))
-    );
+    )
 
 PfisterForm(InexactFieldFamily,Sequence) := GrothendieckWittClass => (kk,L) -> (
     -- Get the length of the input sequence
