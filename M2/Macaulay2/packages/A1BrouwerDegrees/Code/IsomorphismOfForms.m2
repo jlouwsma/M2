@@ -18,8 +18,8 @@ isIsomorphicFormQ (GrothendieckWittClass, GrothendieckWittClass) := Boolean => (
     -- Check if all the Hasse-Witt invariants agree
     PrimesToCheck := unique(relevantPrimes(alpha) | relevantPrimes(beta));
     flag := 0;
-    for p in PrimesToCheck do(
-	if (HasseWittInvariant(alpha,p) != HasseWittInvariant(beta,p)) then(
+    for p in PrimesToCheck do (
+	if (HasseWittInvariant(alpha,p) != HasseWittInvariant(beta,p)) then (
 	    flag = 1;
 	    break;
 	    );
@@ -28,7 +28,7 @@ isIsomorphicFormQ (GrothendieckWittClass, GrothendieckWittClass) := Boolean => (
     )
 
 isIsomorphicFormQ (Matrix, Matrix) := Boolean => (M,N) -> (
-    return isIsomorphicFormQ(gwClass(M),gwClass(N));
+    isIsomorphicFormQ(gwClass(M),gwClass(N))
     )
 
 -- Input: Two Grothendieck-Witt classes alpha and beta, defined over CC, RR, QQ, or a finite field of characteristic not 2
