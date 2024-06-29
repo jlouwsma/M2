@@ -42,7 +42,6 @@ primeFactors (ZZ) := List => (n) -> (
     if abs(n) == 1 then(
 	return {};
 	);
-    
     sort keys(hashTable(factor(abs(n))))
     )
 
@@ -50,7 +49,6 @@ primeFactors (QQ) := List => (n) -> (
     if (not liftable(n,ZZ) == true) then(
 	error "tried to take prime factors of a rational";
 	);
-    
     primeFactors(sub(n,ZZ))   
     )
 
