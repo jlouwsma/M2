@@ -60,8 +60,7 @@ QQanisotropicDimension2 (GrothendieckWittClass) := (GrothendieckWittClass) => be
     
     -- Step 1: We want the Witt index to be 0 mod 4 in their terminology --- note they define the Witt index to be
     -- the integer w so that q = wH + q_a. This is not the same as the dimension of a maximal totally isotropic subspace
-    w := (n - anisotropicDimensionQQ(beta))/2;
-    w = sub(w,ZZ);
+    w := WittIndex(beta);
     q := beta;
     if ((w % 4) != 0) then (
 	w = w % 4;
