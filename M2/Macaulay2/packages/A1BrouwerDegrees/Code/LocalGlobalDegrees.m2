@@ -131,7 +131,7 @@ globalA1Degree (List) := (GrothendieckWittClass) => (Endo) -> (
             );
         );
     gwClass(matrix(B))
-    );
+    )
 
 
 ---------
@@ -273,7 +273,4 @@ localA1Degree (List, Ideal) := (GrothendieckWittClass) => (Endo,p) -> (
             );
         );
     gwClass(matrix(B))
-    );
-
-
-
+    )
