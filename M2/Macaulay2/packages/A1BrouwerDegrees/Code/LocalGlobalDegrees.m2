@@ -23,10 +23,10 @@ globalA1Degree (List) := (GrothendieckWittClass) => (Endo) -> (
     S:=ring(Endo#0);
     
     -- First check if the morphism does not have isolated zeroes
-    if dim ideal(Endo) > 0  then error "Error: morphism does not have isolated zeroes";
+    if dim ideal(Endo) > 0  then error "morphism does not have isolated zeroes";
     
     -- Check the number of variables matches the number of polynomials
-    if not #(gens S) == n then error "Error: the number of variables does not match the number of polynomials.";
+    if not #(gens S) == n then error "the number of variables does not match the number of polynomials.";
     
     -- If the field is CC, just output gwClass of an identity matrix of rank = rankAlgebra
     if instance(kk,ComplexField) then(
@@ -35,7 +35,7 @@ globalA1Degree (List) := (GrothendieckWittClass) => (Endo) -> (
         );
     
     -- If the field is RR, ask the user to run it over QQ instead, then simplify over RR
-    if instance(kk,RealField) then error "Error: globalA1Degree method does not work over the reals. Instead, define the polynomials over QQ to output a GrothendieckWittClass. Then extract the matrix, base change it to RR, and then run sumDecomposition().";    
+    if instance(kk,RealField) then error "globalA1Degree method does not work over the reals. Instead, define the polynomials over QQ to output a GrothendieckWittClass. Then extract the matrix, base change it to RR, and then run sumDecomposition().";    
     
     -- Create internal rings/matrices
     
@@ -161,18 +161,18 @@ localA1Degree (List, Ideal) := (GrothendieckWittClass) => (Endo,p) -> (
     localFormRank := numColumns(basis(S/J));
     
     -- First check if the morphism does not have isolated zeroes
-    if dim ideal(Endo) > 0  then error "Error: morphism does not have isolated zeroes";
+    if dim ideal(Endo) > 0  then error "morphism does not have isolated zeroes";
     
     -- Check the number of variables matches the number of polynomials
-    if not #(gens S) == n then error "Error: the number of variables does not match the number of polynomials.";
+    if not #(gens S) == n then error "the number of variables does not match the number of polynomials.";
     
     -- If the field is CC, just output gwClass of an identity matrix of rank = localFormRank
     if instance(kk,ComplexField) then(
-	return gwClass(matrix(mutableIdentity(CC,localFormRank)))
+	return gwClass(matrix(mutableIdentity(CC,localFormRank)));
         );
     
     -- If the field is RR, ask the user to run it over QQ instead, then simplify over RR
-    if instance(kk,RealField) then error "Error: localA1Degree method does not work over the reals. Instead, define the polynomials over QQ to output a GrothendieckWittClass. Then extract the matrix, base change it to RR, and then run sumDecomposition().";
+    if instance(kk,RealField) then error "localA1Degree method does not work over the reals. Instead, define the polynomials over QQ to output a GrothendieckWittClass. Then extract the matrix, base change it to RR, and then run sumDecomposition().";
     
     -- Create internal rings/matrices
     
