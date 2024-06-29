@@ -68,7 +68,6 @@ globalA1Degree (List) := (GrothendieckWittClass) => (Endo) -> (
     bezDet:="";
     bezDetR:="";
 
-
     -- The determinant of D is interpreted as living in Frac(k[x_1..x_n]),
     -- so we can try to lift it to k[x_1..x_n]           
     if liftable(det(D),R) then(
@@ -106,7 +105,6 @@ globalA1Degree (List) := (GrothendieckWittClass) => (Endo) -> (
     -- Here we're using that (R/I) \otimes_R (R/J) = R/(I+J) in order to express Q(f) \otimes Q(f), where X's are the variables in first term, Y's are variables in second par
     Rquot := R/promotedEndo; 
 
-
     -- moves the standard bases to the quotient ring
     sBXProm := sub(standBasisX, Rquot); 
     sBYProm := sub(standBasisY, Rquot); 
@@ -114,7 +112,6 @@ globalA1Degree (List) := (GrothendieckWittClass) => (Endo) -> (
     --reduces the bezDetR determinant subject to the ideal in the X's and Y's
     bezDetRed := bezDetR % promotedEndo;
 
-    
     -- define a ring map that takes the coefficients to the field kk instead of considering it as an element of the quotient ring
     phi0 := map(kk,Rquot,(toList ((2*n):0))); 
 
@@ -133,7 +130,6 @@ globalA1Degree (List) := (GrothendieckWittClass) => (Endo) -> (
     gwClass(matrix(B))
     )
 
-
 ---------
 -- Local
 ---------
@@ -147,17 +143,14 @@ localA1Degree (List, Ideal) := (GrothendieckWittClass) => (Endo,p) -> (
     
     -- n is the number of polynomials
     n := #Endo; -- n is the no. of polynomials
-    
 
     -- Get the underlying field, assert it is a field
     kk := coefficientRing(ring(Endo#0)); 
-    
-       
+
     if not isField(kk) then(
 	kk = toField(kk);
 	);
 
-    
     -- Let S = k[x_1..x_n] be the ambient polynomial ring
     S := ring(Endo#0);
     
@@ -180,7 +173,6 @@ localA1Degree (List, Ideal) := (GrothendieckWittClass) => (Endo,p) -> (
     
     -- If the field is RR, ask the user to run it over QQ instead, then simplify over RR
     if instance(kk,RealField) then error "Error: localA1Degree method does not work over the reals. Instead, define the polynomials over QQ to output a GrothendieckWittClass. Then extract the matrix, base change it to RR, and then run sumDecomposition().";
-    
     
     -- Create internal rings/matrices
     
