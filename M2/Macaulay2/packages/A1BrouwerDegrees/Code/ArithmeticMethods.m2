@@ -46,7 +46,8 @@ padicValuation (ZZ, ZZ) := (ZZ) => (n, p) -> (
     H := hashTable (factor n);
     a := 0;
     if H#?p then (
-    	a = H#p;)
+    	a = H#p;
+	)
     else (
 	a = 0;
 	);
@@ -81,7 +82,7 @@ squareSymbol(ZZ, ZZ) := (ZZ) => (a, p) -> (
     x := getSymbol "x";
     R := GF(p, Variable => x);
     e1 := padicValuation(a,p);
-    if (even e1) then (
+    if even e1 then (
     	a1 := sub(a/(p^e1), ZZ);
 	a2 := sub(a1, R);
 	if legendreBoolean(a2) then (
@@ -108,7 +109,7 @@ equalUptoPadicSquare (ZZ, ZZ, ZZ) := (Boolean) => (a, b, p) -> (
     
 -- One has to handle the cases when p is odd, and p = 2 differently
 
-    if (odd p) then (
+    if odd p then (
         -- p is odd and we need to check that the powers of p have the same parity, and the units
         -- differ by a square in GF(p)
         a1 := squarefreePart(a);
