@@ -31,7 +31,7 @@ isWellDefined (Matrix) := Boolean => M -> (
     -- Returns false if a matrix isn't symmetric
     --	  Note that this will also return false if a matrix isn't square,
     --	      so we don't need another check for that.
-    if not isSquareAndSymmetric(M) then(
+    if not isSquareAndSymmetric(M) then (
 	<< "-- Defining matrix is not symmetric" << endl;
 	return false;
 	);
@@ -49,7 +49,7 @@ isWellDefined (Matrix) := Boolean => M -> (
 	);
     
     -- Returns false if a matrix is defined over a field of characteristic two
-    if char ring M == 2 then(
+    if char ring M == 2 then (
 	<< "-- Package does not support base fields of characteristic two" <<endl;
 	return false;
 	);
