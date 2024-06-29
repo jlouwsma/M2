@@ -25,10 +25,10 @@ isDegenerate = method()
 isDegenerate (Matrix) := Boolean => M ->(
 
     if numRows(M) == 0 then(
-	return false
+	return false;
 	)
     else(
-	return det(M) == 0
+	return det(M) == 0;
 	);
     )
 
@@ -42,13 +42,13 @@ isNondegenerate (Matrix) := Boolean => M ->(
 
 isUpperLeftTriangular = method()
 isUpperLeftTriangular (Matrix) := Boolean => M -> (
-    if not isSquare(M) then error "Error: matrix isn't square";
+    if not isSquare(M) then error "matrix isn't square";
     n := numRows(M);
     for i from 1 to n - 1 do(
 	for j from 0 to i - 1 do(
     	-- If any entry in this range is nonzero then the matrix isn't upper left triangular
 		if not M_(i,j) == 0 then(
-		    return false
+		    return false;
 		    );
             );
         );
@@ -61,7 +61,7 @@ isUpperLeftTriangular (Matrix) := Boolean => M -> (
 isDiagonal = method()
 isDiagonal (Matrix) := Boolean => M -> (
 
-    if not isSquare(M) then error "Error: matrix is not a square";
+    if not isSquare(M) then error "matrix is not a square";
 
     n := numRows(M);
     
@@ -73,7 +73,7 @@ isDiagonal (Matrix) := Boolean => M -> (
 		
 		-- If any entry off diagonal  is nonzero then the matrix isn't diagonal
 		if  M_(i,j) != 0 or M_(j,i) != 0  then(
-		    return false
+		    return false;
 		    );
 		);
             );
@@ -87,12 +87,12 @@ isDiagonal (Matrix) := Boolean => M -> (
 congruenceDiagonalize = method()
 congruenceDiagonalize (Matrix) := (Matrix) => (AnonMut) -> (
     k := ring AnonMut;
-    if not isField(k) then error "Error: expected matrix entries from a field";
+    if not isField(k) then error "expected matrix entries from a field";
     if not isSquareAndSymmetric(AnonMut) then error "matrix is not symmetric";
     
     -- If the matrix is already diagonal then return it
     if isDiagonal(AnonMut) then(
-	return AnonMut
+	return AnonMut;
 	);
     
     -- Otherwise we iterate through columns and rows under the diagonal, and perform row operations followed by the corresponding
