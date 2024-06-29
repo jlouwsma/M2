@@ -33,7 +33,6 @@ HilbertSymbolReal (ZZ, ZZ) := (ZZ) => (a,b) -> (
     HilbertSymbolReal(a1, b1)
     )
 
-
 -- Input: Any integers a and b and a prime p. The integers a and b are considered as elements of QQ_p.
 -- Output: The Hilbert symbol (a,b)_p following Serre III Theorem 1
 
@@ -55,7 +54,6 @@ HilbertSymbol (ZZ, ZZ, ZZ) := (ZZ) => (a, b, p) -> (
     -- If epsilon(p) = 1
     if (p % 4 == 3) then(
 	return ((-1)^(alpha*beta))*(((squareSymbol(u,p))^beta) * ((squareSymbol(v,p))^alpha));
-	
 	);
     
     -- Finally if p=2
@@ -70,7 +68,6 @@ HilbertSymbol (ZZ, ZZ, ZZ) := (ZZ) => (a, b, p) -> (
 	d := sub(((u-1)/2)*((v-1)/2) + alpha*((v^2-1)/8) + beta*((u^2-1)/8),ZZ);
 	return ((-1)^d)
 	);
-    
     )
 
 HilbertSymbol (QQ, QQ, ZZ) := (ZZ) => (a, b, p) -> (
@@ -92,7 +89,7 @@ HilbertSymbol (QQ, QQ, ZZ) := (ZZ) => (a, b, p) -> (
     
     a = sub(a,ZZ);
     b = sub(b,ZZ);
-    return HilbertSymbol(a,b,p);
+    HilbertSymbol(a,b,p)
     )
 
 HilbertSymbol (ZZ, QQ, ZZ) := (ZZ) => (a, b, p) -> (
