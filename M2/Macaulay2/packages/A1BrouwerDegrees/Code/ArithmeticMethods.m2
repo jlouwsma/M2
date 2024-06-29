@@ -32,7 +32,7 @@ primeFactors (ZZ) := List => (n) -> (
     )
 
 primeFactors (QQ) := List => (n) -> (
-    if (not liftable(n,ZZ) == true) then error "tried to take prime factors of a rational";
+    if not liftable(n,ZZ) then error "tried to take prime factors of a rational";
     primeFactors(sub(n,ZZ))   
     )
 
@@ -167,7 +167,7 @@ localAlgebraBasis (List, Ideal) := (List) => (L,p) -> (
     
     -- Check whether or not an ideal is zero-dimensional
     if dim I > 0  then error "morphism does not have isolated zeroes";
-    if (not isSubset(I,p)) then error "prime is not a zero of function";
+    if not isSubset(I,p) then error "prime is not a zero of function";
     J := I:saturate(I,p);
     A := R/J;
     B := basis(A);
