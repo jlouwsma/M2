@@ -57,7 +57,7 @@ isWellDefined (Matrix) := Boolean => M -> (
 	);
 
     true
-    );
+    )
 
 -- Input: A Grothendieck-Witt class beta, the isomorphism class of a symmetric bilinear form
 -- Output: The base ring of beta
