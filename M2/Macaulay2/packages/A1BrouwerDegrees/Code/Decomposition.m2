@@ -16,7 +16,7 @@ QQanisotropicDimension4 (GrothendieckWittClass) := (GrothendieckWittClass) => be
     if signature(beta) < 0 then(
 	return gwClass(matrix(QQ,{{-1}}))	        
         );	
-    );
+    )
 
 -- Input: A form q over QQ of anisotropic dimension 3
 -- Output: A form < a > so that q + < -a > has anisotropic dimension 2
@@ -48,7 +48,7 @@ QQanisotropicDimension3 (GrothendieckWittClass) := (GrothendieckWittClass) => be
     a := squarefreePart(alpha);
     
     diagonalForm(QQ,a)
-    );
+    )
 
 -- Constructs the anisotropic part of a form with anisotropic dimension 2
 QQanisotropicDimension2 = method()
@@ -158,7 +158,7 @@ QQanisotropicDimension2 (GrothendieckWittClass) := (GrothendieckWittClass) => be
 	alpha = alpha * ((basisES_j)^(sub(X_(j,0),ZZ)));
 	);
     diagonalForm(QQ,(alpha, -squarefreePart(alpha*d)))
-    );
+    )
 
 
 -- Input: Any form over QQ
@@ -196,7 +196,7 @@ QQanisotropicPart (GrothendieckWittClass) := (GrothendieckWittClass) => (beta) -
 	);
     
     outputForm
-    );
+    )
 
 -- Input: A symmetric matrix representing a quadratic form or a GrothendieckWittClass; over QQ, RR, CC, or a finite field of characteristic not 2
 -- Output: A symmetric matrix or GrothendieckWittClass that is the anisotropic part of the input
@@ -304,7 +304,7 @@ sumDecomposition = method()
 sumDecomposition (GrothendieckWittClass) := (GrothendieckWittClass) => beta -> (
     beta.cache.diagonalClass = (sumDecompositionVerbose(beta))_0;
     (sumDecompositionVerbose(beta))_0
-    );
+    )
 
 -- Input: A Grothendieck-Witt class beta over a field k
 -- Output: The decomposition as a sum of hyperbolic and rank one forms
@@ -312,4 +312,4 @@ sumDecomposition (GrothendieckWittClass) := (GrothendieckWittClass) => beta -> (
 sumDecompositionString = method()
 sumDecompositionString (GrothendieckWittClass) := (String) => beta -> (
     (sumDecompositionVerbose(beta))_1
-    );
+    )
