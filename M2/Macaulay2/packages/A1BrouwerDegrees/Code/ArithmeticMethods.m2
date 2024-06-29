@@ -46,9 +46,7 @@ primeFactors (ZZ) := List => (n) -> (
     )
 
 primeFactors (QQ) := List => (n) -> (
-    if (not liftable(n,ZZ) == true) then(
-	error "tried to take prime factors of a rational";
-	);
+    if (not liftable(n,ZZ) == true) then error "tried to take prime factors of a rational";
     primeFactors(sub(n,ZZ))   
     )
 
@@ -58,7 +56,7 @@ primeFactors (QQ) := List => (n) -> (
 padicValuation = method()
 padicValuation (ZZ, ZZ) := (ZZ) => (n, p) -> (
     if (n < 0) then (n = -n);
-    if (n == 0) then error "Error: Trying to find prime factorization of 0";
+    if (n == 0) then error "Trying to find prime factorization of 0";
     H := hashTable (factor n);
     a := 0;
     if H#?p then (
@@ -82,7 +80,7 @@ padicValuation (QQ, ZZ) := (ZZ) => (q, p) -> (
 
 legendreBoolean = method()
 legendreBoolean (RingElement) := (Boolean) => a -> (
-    if not instance(ring(a),GaloisField) then error "Error: this works only for Galois fields";
+    if not instance(ring(a),GaloisField) then error "this works only for Galois fields";
     q := (ring(a)).order;
     -- Detects if a is a square in F_q
     a^((q-1)//2) == 1 
@@ -175,21 +173,15 @@ localAlgebraBasis = method()
 localAlgebraBasis (List, Ideal) := (List) => (L,p) -> (
     
     -- Determine whether or not an ideal is prime
-    if not isPrime(p) then (
-        error "Error: ideal is not prime"
-        );
+    if not isPrime(p) then error "ideal is not prime";
     
     -- Ambient ring
     R := ring L#0;
     I := ideal(L);
     
     -- Check whether or not an ideal is zero-dimensional
-    if dim I > 0  then (
-        error "Error: morphism does not have isolated zeroes"
-        );
-    if (not isSubset(I,p)) then (
-        error "Error: prime is not a zero of function"
-        );
+    if dim I > 0  then error "morphism does not have isolated zeroes";
+    if (not isSubset(I,p)) then error "prime is not a zero of function";
     J := I:saturate(I,p);
     A := R/J;
     B := basis(A);
@@ -212,9 +204,7 @@ rankGlobalAlgebra (List) := (ZZ) => (Endo) -> (
     S := ring(Endo#0);
     
     -- First check if the morphism does not have isolated zeroes
-    if dim ideal(Endo) > 0  then (
-	error "ideal is not zero-dimensional";
-	);
+    if dim ideal(Endo) > 0  then error "ideal is not zero-dimensional";
     
     -- Get the rank of S/ideal(Endo) as a kk-vector space
     numColumns(basis(S/ideal(Endo)))
