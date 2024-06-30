@@ -29,7 +29,7 @@ HilbertSymbolReal (ZZ, ZZ) := (ZZ) => (a,b) -> (
     HilbertSymbolReal(a1, b1)
     )
 
--- Input: A pair of rational numbers a and b and a prime number p. The integers a and b are considered as elements of QQ_p
+-- Input: A pair of rational numbers a and b and a prime number p. The integers a and b are considered as elements of Q_p
 -- Output: The Hilbert symbol (a,b)_p following Serre, III Theorem 1
 
 HilbertSymbol = method()
