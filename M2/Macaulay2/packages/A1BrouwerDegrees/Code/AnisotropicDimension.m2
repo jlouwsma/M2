@@ -105,7 +105,7 @@ anisotropicDimension (Matrix) := (ZZ) => (A) -> (
         error "Base field not supported; only implemented over QQ, RR, CC, and finite fields of characteristic not 2";
         );
     -- Ensure matrix is symmetric
-    if (transpose(A) != A) then error "Matrix is not symmetric";
+    if not isSquareAndSymmetric(A) then error "Matrix is not symmetric";
     -- Over CC, the anisotropic dimension is 0 or 1 depending on the parity of the rank
     if instance(k,ComplexField) then (
         return (rank(A)%2);
