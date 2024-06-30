@@ -117,7 +117,7 @@ anisotropicDimension (Matrix) := (ZZ) => (A) -> (
         )
     -- Over QQ, call anisotropicDimensionQQ
     else if (k === QQ) then (
-        return anisotropicDimensionQQ(gwClass(A));
+        return anisotropicDimensionQQ(gwClass(nondegeneratePartDiagonal(A)));
         )
     -- Over a finite field, if the number of nonzero diagonal entries is odd, then the anisotropic dimension is 1
     -- if the number of nonzero diagonal entries is even, then the anisotropic dimension is either 0 or 2
