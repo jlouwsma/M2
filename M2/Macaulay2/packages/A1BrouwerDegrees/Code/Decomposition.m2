@@ -208,7 +208,7 @@ anisotropicPart (Matrix) := (Matrix) => (A) -> (
         error "Base field not supported; only implemented over QQ, RR, CC, and finite fields of characteristic not 2";
         );
     -- Ensure underlying matrix is symmetric
-    if (transpose(A) != A) then error "Underlying matrix is not symmetric";
+    if not isSquareAndSymmetric(A) then error "Underlying matrix is not symmetric";
     -- Over CC, the anisotropic part is either the rank 0 form or the rank 1 form, depending on the anisotropic dimension
     if instance(k,ComplexField) then (
         if (anisotropicDimension(A) == 0) then (
