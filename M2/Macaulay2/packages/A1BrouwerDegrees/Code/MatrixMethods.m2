@@ -208,11 +208,3 @@ nondegeneratePartDiagonal (Matrix) := (Matrix) => (A) -> (
         );
     diagA
     )
-
--- Input: A symmetric matrix representing a quadratic form
--- Output: The dimension of the nondegenerate part of the quadratic form
-
-nondegenerateDimension = method()
-nondegenerateDimension (Matrix) := (ZZ) => (A) -> (
-    numRows(nondegeneratePartDiagonal(A))
-    )
