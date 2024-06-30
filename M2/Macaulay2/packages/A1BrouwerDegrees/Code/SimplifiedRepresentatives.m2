@@ -2,23 +2,23 @@
 -- Simplifying forms
 ---------------------
 
--- Input: A GrothendieckWittClass over QQ, RR, CC, or a finite field of characteristic not 2
--- Output: A diagonalized form of the GrothendieckWittClass, with squares stripped out
+-- Input: A GrothendieckWittClass beta over QQ, RR, CC, or a finite field of characteristic not 2
+-- Output: A diagonalized form of beta, with squares stripped out
 
 diagonalClass = method()
 diagonalClass (GrothendieckWittClass) := (GrothendieckWittClass) => (beta) -> (
 
-    -- Check if the diagonalClass has already been computed, if so recall it from the cache
+    -- Check if the diagonalClass has already been computed; if so, recall it from the cache
     if beta.cache.?diagonalClass then return beta.cache.diagonalClass;
 
     diagonalClassOfBetaMatrix := congruenceDiagonalizeSimplify(beta.matrix);
 
-    -- The diagonal form gets cached in the GWclass type
+    -- The diagonal form gets cached in the GWClass type
     beta.cache.diagonalClass = gwClass(diagonalClassOfBetaMatrix);
     gwClass(diagonalClassOfBetaMatrix)
     )
 
--- Input: A Grothendieck-Witt class beta
+-- Input: A Grothendieck-Witt class beta over QQ, RR, CC, or a finite field of characteristic not 2
 -- Output: The diagonal entries of a diagonal matrix representing beta as a list
 
 diagonalEntries = method()
