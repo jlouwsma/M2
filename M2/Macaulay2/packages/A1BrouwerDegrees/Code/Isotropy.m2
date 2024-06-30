@@ -1,5 +1,5 @@
 -- Input: A matrix representing a symmetric bilinear form over QQ, RR, CC, or a finite field of characteristic not 2
--- Output: Boolean returning whether the symmetric bilinear form is anisotropic
+-- Output: Boolean that gives whether the symmetric bilinear form is anisotropic
 	
 isAnisotropic = method()
 isAnisotropic (Matrix) := (Boolean) => (A) -> (
@@ -11,23 +11,23 @@ isAnisotropic (Matrix) := (Boolean) => (A) -> (
     numRows(A) == anisotropicDimension(A)
     )
 
--- Input: A Grothendieck-Witt class alpha over QQ, RR, CC, or a finite field of characteristic not 2
--- Output: Boolean returning whether alpha is anisotropic
+-- Input: A Grothendieck-Witt class over QQ, RR, CC, or a finite field of characteristic not 2
+-- Output: Boolean that gives whether the Grothendieck-Witt class is anisotropic
 
 isAnisotropic (GrothendieckWittClass) := (Boolean) => (alpha) -> (
     isAnisotropic(alpha.matrix)
     )
 
 -- Input: A matrix representing a symmetric bilinear form over QQ, RR, CC, or a finite field of characteristic not 2
--- Output: Boolean returning whether the symmetric bilinear form is isotropic	
+-- Output: Boolean that gives whether the symmetric bilinear form is isotropic	
 
 isIsotropic = method()
 isIsotropic (Matrix) := (Boolean) => (A) -> (
     not isAnisotropic(A)
     )
 
--- Input: A Grothendieck-Witt class alpha over QQ, RR, CC, or a finite field of characteristic not 2
--- Output: Boolean returning whether alpha is isotropic
+-- Input: A Grothendieck-Witt class over QQ, RR, CC, or a finite field of characteristic not 2
+-- Output: Boolean that gives whether the Grothendieck-Witt class is isotropic
 
 isIsotropic (GrothendieckWittClass) := (Boolean) => (alpha) -> (
     not isAnisotropic(alpha)
