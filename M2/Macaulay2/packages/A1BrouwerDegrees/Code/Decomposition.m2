@@ -1,32 +1,33 @@
--- Input: A form 1 over QQ of anisotropic dimension d >= 4
+-- Input: A form q over QQ of anisotropic dimension d >= 4
 -- Output: A form < a > so that q + < -a > has anisotropic dimension d - 1
-
 -- Note: This is Koprowski/Rothkegel's Algorithm 5 in the case of QQ
 
 QQanisotropicDimension4 = method()
 QQanisotropicDimension4 (GrothendieckWittClass) := (GrothendieckWittClass) => beta -> (
-    if not (anisotropicDimensionQQ(beta) >= 4) then error "anisotropic dimension of inputted form is not >=4";
+    if not (anisotropicDimensionQQ(beta) >= 4) then error "anisotropic dimension of form is not >= 4";
     
-    -- If the signature is non-negative then return <1>
+    -- If the signature is non-negative then return < 1 >
     if signature(beta) >= 0 then (
-	return gwClass(matrix(QQ,{{1}}));
+	return diagonalForm(QQ,1);
 	);
     
-    -- Otherwise return <-1>
+    -- Otherwise return < -1 >
     if signature(beta) < 0 then (
-	return gwClass(matrix(QQ,{{-1}}));	        
+	return diagonalForm(QQ,-1);        
         );	
     )
 
 -- Input: A form q over QQ of anisotropic dimension 3
 -- Output: A form < a > so that q + < -a > has anisotropic dimension 2
-
 -- Note: This is Koprowski/Rothkegel's Algorithm 7 in the case of QQ
+
 QQanisotropicDimension3 = method()
 QQanisotropicDimension3 (GrothendieckWittClass) := (GrothendieckWittClass) => beta -> (
+    if not (anisotropicDimensionQQ(beta) == 3) then error "anisotropic dimension of form is not 3";
+
     d := integralDiscriminant(beta);
     
-    -- Build lists of primes where the p-adic valuation of the discriminant is even or is odd
+    -- Build lists of relevant primes where the p-adic valuation of the discriminant is even or is odd
     L1 := {1};
     L2 := {};
     S1 := {1};
@@ -42,24 +43,28 @@ QQanisotropicDimension3 (GrothendieckWittClass) := (GrothendieckWittClass) => be
 	    );
 	);
     
-    -- We are looking for an element which is equivalent to d-1 mod p for each p in L1, and equivalent to p mod p^2 for each p in L2
-    -- we use the chineseRemainder method from the "Parametrization" package to find such an element
-    alpha := chineseRemainder(S1 | S2, L1 |L2);
+    -- We are looking for an element which is equivalent to d-1 mod p for each p in L1 and equivalent to p mod p^2 for each p in L2
+    -- We use the chineseRemainder method from the "Parametrization" package to find such an element
+    alpha := chineseRemainder(S1 | S2, L1 | L2);
     a := squarefreePart(alpha);
-    
     diagonalForm(QQ,a)
     )
 
--- Constructs the anisotropic part of a form with anisotropic dimension 2
+-- Input: A form q over QQ of anisotropic dimension 2
+-- Output: The anisotropic part of q
+-- Note: This is Koprowski/Rothkegel's Algorithm 8 in the case of QQ
+
 QQanisotropicDimension2 = method()
 QQanisotropicDimension2 (GrothendieckWittClass) := (GrothendieckWittClass) => beta -> (
+    if not (anisotropicDimensionQQ(beta) == 2) then error "anisotropic dimension of form is not 2";
+
     n := numRows beta.matrix;
 
     -- Shortcut: if the form has anisotropic dimension 2 and the form is dimension 2, return the form itself
     if (n==2) then return beta; 
     
     -- Step 1: We want the Witt index to be 0 mod 4 in their terminology --- note they define the Witt index to be
-    -- the integer w so that q = wH + q_a. This is not the same as the dimension of a maximal totally isotropic subspace
+    -- the integer w so that q = wH + q_a.
     w := WittIndex(beta);
     q := beta;
     if ((w % 4) != 0) then (
@@ -69,7 +74,7 @@ QQanisotropicDimension2 (GrothendieckWittClass) := (GrothendieckWittClass) => be
 	);
 
     -- Step 2: Compute discriminant (note they use a signed version of the discriminant in their algorithm)
-    d:= ((-1)^(n*(n-1)/2))*integralDiscriminant(q);
+    d := ((-1)^(n*(n-1)/2))*integralDiscriminant(q);
     
     -- Step 3: Take relevant primes plus dyadic ones
     S := relevantPrimes(beta);
@@ -78,16 +83,14 @@ QQanisotropicDimension2 (GrothendieckWittClass) := (GrothendieckWittClass) => be
 	);
     
     -- Start the loop at p=2
-    p:=2;
+    p := 2;
     solnFound := false;
     
     while not solnFound do (
 	s := #S;
 
 	-- Step 5a: Make a basis for the group of S-singular elements
-	-- Gabe/Tommy: we think this should be {-1,2,relevantPrimes}
-	basisES := S;
-	basisES = append(basisES,-1);
+	basisES = append(S,-1);
 	m := #basisES;
 
     	-- Step 5c: Make a vector of exponents of Hasse invariants
@@ -99,15 +102,14 @@ QQanisotropicDimension2 (GrothendieckWittClass) := (GrothendieckWittClass) => be
 	-- Step 5b / 5f: 
 	W = matrix(W);
     	if (d < 0) then (
-	    if not (abs(signature(q)) == 2) then error "signature isn't pm 2";
-	    
+	    if abs(signature(q)) != 2 then error "signature isn't pm 2";
 	    if (signature(q) == 2) then (
 		W = matrix(QQ,{{0}}) || W;
 		);
 	    if (signature(q) == -2) then (
 		W = matrix(QQ,{{1}}) || W;
+	        );
 	    );
-	);
         
     	-- Step 5e: Make a matrix of Hilbert symbols
     	B := mutableMatrix(QQ,s,m);	
@@ -132,7 +134,7 @@ QQanisotropicDimension2 (GrothendieckWittClass) := (GrothendieckWittClass) => be
 	    B = matrix(A) || B;
 	    );
 
-	-- Step 5f - try to solve matrices over F2
+	-- Step 5f: Try to solve sytem of equations over F_2
         kk := GF(2);
     	W = matrix(kk,entries(W));
     	B = matrix(kk,entries(B));
@@ -157,9 +159,9 @@ QQanisotropicDimension2 (GrothendieckWittClass) := (GrothendieckWittClass) => be
     diagonalForm(QQ,(alpha, -squarefreePart(alpha*d)))
     )
 
+-- Input: A Grothendieck-Witt class representing a quadratic form over QQ
+-- Output: The Grothendieck-Witt class representing the anisotropic part of this form
 
--- Input: Any form over QQ
--- Output: Its anisotropic part
 QQanisotropicPart = method()
 QQanisotropicPart (GrothendieckWittClass) := (GrothendieckWittClass) => (beta) -> (
     beta = diagonalClass(beta);
@@ -209,7 +211,7 @@ anisotropicPart (Matrix) := (Matrix) => (A) -> (
     if (transpose(A) != A) then error "Underlying matrix is not symmetric";
     -- Over CC, the anisotropic part is either the rank 0 form or the rank 1 form, depending on the anisotropic dimension
     if instance(k,ComplexField) then (
-        if (anisotropicDimension(A)==0) then (
+        if (anisotropicDimension(A) == 0) then (
             return (diagonalMatrix(CC,{}));
             )
         else (
@@ -235,13 +237,14 @@ anisotropicPart (Matrix) := (Matrix) => (A) -> (
     else if (k === QQ) then (
         return (QQanisotropicPart(gwClass(nondegeneratePartDiagonal(A)))).matrix;
         )
-    -- Over a finite field, if the anisotropic dimension is 1, then the form is either <1> or <e>, where e is any nonsquare representative, and if the anisotropic dimension is 2 then the form is <1,-e>
+    -- Over a finite field, if the anisotropic dimension is 1, then the form is either < 1 > or < e >, where e is any nonsquare representative,
+    -- and if the anisotropic dimension is 2 then the form is <1,-e>
     else if (instance(k, GaloisField) and k.char != 2) then (
         diagA := congruenceDiagonalize(A);
-        if (anisotropicDimension(A)==1) then (
+        if (anisotropicDimension(A) == 1) then (
             return (matrix(k,{{sub((-1)^((rank(diagA)-1)/2),k)*det(nondegeneratePartDiagonal(diagA))}}));
             )
-        else if (anisotropicDimension(A)==0) then (
+        else if (anisotropicDimension(A) == 0) then (
             return (diagonalMatrix(k,{}));
             )
         else (
