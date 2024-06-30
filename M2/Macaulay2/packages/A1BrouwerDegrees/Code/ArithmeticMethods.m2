@@ -61,7 +61,7 @@ legendreBoolean (RingElement) := (Boolean) => a -> (
     )
 
 -- Input: An integer a and a prime p
--- Output: 1 if a is a unit square, -1 if a = p^(even power)x (non-square unit), 0 otherwise
+-- Output: 1 if a is a unit square, -1 if a = p^(even power) x (non-square unit), 0 otherwise
 -- Note: The terminology "Square Symbol" comes from John Voight's Quaternion Algebra book
 
 squareSymbol = method()
