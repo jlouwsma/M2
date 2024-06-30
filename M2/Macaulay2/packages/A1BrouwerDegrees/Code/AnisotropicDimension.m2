@@ -110,7 +110,7 @@ anisotropicDimension (Matrix) := (ZZ) => (A) -> (
     if instance(k,ComplexField) then (
         return (rank(A)%2);
         )
-    --Over RR, the anisotropic dimension is the absolute value of the signature
+    -- Over RR, the anisotropic dimension is the absolute value of the signature
     else if instance(k,RealField) then (
         diagonalA := congruenceDiagonalize(A);
         return (abs(numPosDiagEntries(diagonalA) - numNegDiagEntries(diagonalA)));
