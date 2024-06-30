@@ -121,7 +121,7 @@ equalUptoPadicSquare (ZZ, ZZ, ZZ) := (Boolean) => (a, b, p) -> (
     	    -- c1 will be an integer prime to p
 	    c1 = squarefreePart(a1*b1);
 	    c1 = c1 % 8;
-	    -- if c1 = 1, then the two odd units are congruent mod 8, and are squares in Q_2
+	    -- If c1 = 1, then the two odd units are congruent mod 8, and are squares in Q_2
 	    return (c1 == 1); 
 	    );
         );
