@@ -1,30 +1,30 @@
 -- Input: Two Grothendieck-Witt classes or symmetric matrices representing quadratic forms over QQ
--- Output: Boolean checking whether the Grothendieck-Witt classes/quadratic forms are isomorphic
+-- Output: Boolean that gives whether the Grothendieck-Witt classes/quadratic forms are isomorphic
 
 isIsomorphicFormQ = method()
 isIsomorphicFormQ (GrothendieckWittClass, GrothendieckWittClass) := Boolean => (alpha, beta) -> (
-    if (not baseField(alpha) === QQ) then error "first input must be a form defined over QQ";
-    if (not baseField(beta) === QQ) then error "second input must be a form defined over QQ";
+    if (not baseField(alpha) === QQ) then error "first input must have base field QQ";
+    if (not baseField(beta) === QQ) then error "second input must have base field QQ";
     
-    -- Check if the ranks agree
+    -- If the ranks differ, then the forms are not isomorphic
     if (numRows(alpha.matrix) != numRows(beta.matrix)) then return false;
     
-    -- Check if the signatures (Hasse-Witt invariants at RR) agree
+    -- If the signatures (Hasse-Witt invariants at RR) differ, then the forms are not isomorphic
     if (signature(alpha) != signature(beta)) then return false;
     
-    -- Check if the discriminants agree
+    -- If the discriminants differ, then the forms are not isomorphic
     if (integralDiscriminant(alpha) != integralDiscriminant(beta)) then return false;
     
-    -- Check if all the Hasse-Witt invariants agree
+    -- Check the Hasse-Witt invariants
     PrimesToCheck := unique(relevantPrimes(alpha) | relevantPrimes(beta));
-    flag := 0;
     for p in PrimesToCheck do (
+        -- If any Hasse-Witt invariants differ, then the forms are not isomorphic
 	if (HasseWittInvariant(alpha,p) != HasseWittInvariant(beta,p)) then (
-	    flag = 1;
-	    break;
+	    return false;
 	    );
 	);
-    flag == 0
+    -- If we get here, then all Hasse-Witt invariants agree and the forms are isomorphic
+    true
     )
 
 isIsomorphicFormQ (Matrix, Matrix) := Boolean => (M,N) -> (
@@ -32,15 +32,15 @@ isIsomorphicFormQ (Matrix, Matrix) := Boolean => (M,N) -> (
     )
 
 -- Input: Two Grothendieck-Witt classes alpha and beta, defined over CC, RR, QQ, or a finite field of characteristic not 2
--- Output: Boolean checking if alpha and beta are the same
+-- Output: Boolean that gives whether alpha and beta are the same Grothendieck-Witt class
 
 gwIsomorphic = method()
 gwIsomorphic (GrothendieckWittClass,GrothendieckWittClass) := (Boolean) => (alpha,beta) -> (
     isIsometricForm(alpha.matrix,beta.matrix)
     )
 
--- Input: Two symmetric bilinear forms represented as matrices
--- Output: Boolean checking whether two symmetric bilinear forms are isometric
+-- Input: Two matrices representing symmetric bilinear forms over CC, RR, QQ, or a finite field of characteristic not 2
+-- Output: Boolean that gives whether the bilinear forms are isometric
 
 isIsometricForm = method()
 isIsometricForm (Matrix,Matrix) := (Boolean) => (A,B) -> (
@@ -82,7 +82,7 @@ isIsometricForm (Matrix,Matrix) := (Boolean) => (A,B) -> (
     -- Rational numbers
     -----------------------------------
     
-    -- Over QQ, if spaces have same dimension and nondegenerate parts have same dimension, then call isIsomorphicFormQ, which checks equivalence over all completions
+    -- Over QQ, if spaces have same dimension, then call isIsomorphicFormQ on their nondegenerate parts
     else if ((k1 === QQ) and (k2 === QQ)) then (
         return ((numRows(A) == numRows(B)) and (isIsomorphicFormQ(nondegeneratePartDiagonal(A),nondegeneratePartDiagonal(B))));
         )
@@ -95,6 +95,6 @@ isIsometricForm (Matrix,Matrix) := (Boolean) => (A,B) -> (
     else if (instance(k1, GaloisField) and instance(k2, GaloisField) and k1.char !=2 and k2.char != 2 and k1.order == k2.order) then (
         return ((numRows(A) == numRows(B)) and (rank(A) == rank(B)) and (legendreBoolean(det(nondegeneratePartDiagonal(A))) == legendreBoolean(sub(det(nondegeneratePartDiagonal(B)),k1))));
         )
-    -- If we get here, the base fields are not isomorphic
-    else error "Base fields are not isomorphic"
+    -- If we get here, the base fields are not the same
+    else error "Base fields are not the same"
     )
