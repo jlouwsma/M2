@@ -153,5 +153,5 @@ anisotropicDimension (GrothendieckWittClass) := (ZZ) => (alpha) -> (
 
 WittIndex = method()
 WittIndex (GrothendieckWittClass) := (ZZ) => (alpha) -> (
-    sub((numRows(alpha.matrix) - anisotropicDimension(alpha))/2,ZZ)
+    sub((rank(alpha) - anisotropicDimension(alpha))/2,ZZ)
     )
