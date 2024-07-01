@@ -42,7 +42,7 @@ globalA1Degree (List) := (GrothendieckWittClass) => (Endo) -> (
     Y := local Y;
     R := kk(monoid[X_1..X_n|Y_1..Y_n]);
 
-    -- Create an (n x n) matrix D to be populated by \Delta_{ij} from the paper
+    -- Create an (n x n) matrix D to be populated by \Delta_{ij} from the Brazelton-McKean-Pauli paper
     D := "";
     try D = mutableMatrix id_((frac R)^n) else D = mutableMatrix id_(R^n);
     
@@ -146,17 +146,17 @@ localA1Degree (List, Ideal) := (GrothendieckWittClass) => (Endo,p) -> (
 	kk = toField(kk);
 	);
 
-    -- Let S = k[x_1..x_n] be the ambient polynomial ring
+    -- Let S = kk[x_1..x_n] be the ambient polynomial ring
     S := ring(Endo#0);
     
-    -- Create the ideal J.  It has the property that k[x_1 .. x_n]_p/I_p is isomorphic to k[x_1 .. x_n]/J    
+    -- Create the ideal J. It has the property that k[x_1 .. x_n]_p/I_p is isomorphic to k[x_1 .. x_n]/J    
     J := (ideal Endo):saturate(ideal Endo,p);
     
     -- Get the dimension of the local algebra Q_p(f)
     localFormRank := numColumns(basis(S/J));
     
     -- Check whether the morphism has isolated zeroes
-    if dim ideal(Endo) > 0  then error "morphism does not have isolated zeroes";
+    if dim ideal(Endo) > 0 then error "morphism does not have isolated zeroes";
     
     -- Check whether the number of variables matches the number of polynomials
     if #(gens S) != n then error "the number of variables does not match the number of polynomials";
@@ -176,7 +176,7 @@ localA1Degree (List, Ideal) := (GrothendieckWittClass) => (Endo,p) -> (
     Y := local Y;
     R := kk(monoid[X_1..X_n|Y_1..Y_n]);
 
-    -- Create an (n x n) matrix D to be populated by \Delta_{ij} from the paper
+    -- Create an (n x n) matrix D to be populated by \Delta_{ij} from the Brazelton-McKean-Pauli paper
     D := "";
     try D = mutableMatrix id_((frac R)^n) else D= mutableMatrix id_(R^n);
     
