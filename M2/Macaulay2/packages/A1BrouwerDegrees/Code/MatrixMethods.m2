@@ -122,7 +122,7 @@ congruenceDiagonalizeSimplify (Matrix) := (Matrix) => (AnonMut) -> (
         );
     if not isSquareAndSymmetric(AnonMut) then error "matrix is not symmetric";
 
-    A := mutableMatrix(congruenceDiagonalize(AnonMut);
+    A := mutableMatrix(congruenceDiagonalize(AnonMut));
     n := numRows(A);
 
     -- If the field is the complex numbers, replace each nonzero entry of the diagonalization by 1
