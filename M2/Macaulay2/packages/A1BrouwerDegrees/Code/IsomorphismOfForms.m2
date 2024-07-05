@@ -7,7 +7,7 @@ isIsomorphicFormQ (GrothendieckWittClass, GrothendieckWittClass) := Boolean => (
     if (not baseField(beta) === QQ) then error "second input must have base field QQ";
     
     -- If the ranks differ, then the forms are not isomorphic
-    if (numRows(alpha.matrix) != numRows(beta.matrix)) then return false;
+    if (rank(alpha) != rank(beta)) then return false;
     
     -- If the signatures (Hasse-Witt invariants at RR) differ, then the forms are not isomorphic
     if (signature(alpha) != signature(beta)) then return false;
