@@ -58,7 +58,7 @@ QQanisotropicDimension2 = method()
 QQanisotropicDimension2 (GrothendieckWittClass) := (GrothendieckWittClass) => beta -> (
     if not (anisotropicDimensionQQ(beta) == 2) then error "anisotropic dimension of form is not 2";
 
-    n := numRows beta.matrix;
+    n := rank(beta);
 
     -- Shortcut: if the form has anisotropic dimension 2 and the form is dimension 2, return the form itself
     if (n==2) then return beta; 
@@ -165,7 +165,7 @@ QQanisotropicDimension2 (GrothendieckWittClass) := (GrothendieckWittClass) => be
 QQanisotropicPart = method()
 QQanisotropicPart (GrothendieckWittClass) := (GrothendieckWittClass) => (beta) -> (
     beta = diagonalClass(beta);
-    n := numRows(beta.matrix);
+    n := rank(beta);
     
     -- If the form is anisotropic 
     if anisotropicDimension(beta) == n then return beta;
@@ -268,7 +268,7 @@ sumDecompositionVerbose (GrothendieckWittClass) := (GrothendieckWittClass, Strin
     -- Get base field of beta
     kk := baseField(beta);
 
-    if numRows(beta.matrix) == 0 then (
+    if rank(beta) == 0 then (
 	return (gwClass(diagonalMatrix(kk,{})),"empty form");
 	);
     
@@ -284,7 +284,7 @@ sumDecompositionVerbose (GrothendieckWittClass) := (GrothendieckWittClass, Strin
     hyperbolicPart := hyperbolicForm(kk,2*w);
     alpha := anisotropicPart(beta);
     
-    if numRows(alpha.matrix) > 0 then (
+    if rank(alpha) > 0 then (
         D := diagonalEntries(alpha);
         for i from 0 to (length(D)-1) do (
 	    outputString = outputString | "+ <" | toString(D_i) | ">";
