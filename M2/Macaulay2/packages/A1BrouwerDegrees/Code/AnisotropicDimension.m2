@@ -9,7 +9,7 @@
 isHyperbolicQp = method()
 isHyperbolicQp (GrothendieckWittClass, ZZ) := Boolean => (beta, p) -> (
     B := beta.matrix;
-    rankForm := numRows(B);
+    rankForm := rank(beta);
     kk := ring B;
     
     if not (kk === QQ) then error "GrothendieckWittClass is not over QQ";
@@ -42,7 +42,7 @@ isHyperbolicQp (GrothendieckWittClass, ZZ) := Boolean => (beta, p) -> (
 anisotropicDimensionQp = method()
 anisotropicDimensionQp (GrothendieckWittClass, ZZ) := ZZ => (beta, p) -> (
     B := beta.matrix;
-    rankForm := numRows(B);
+    rankForm := rank(beta);
     kk := ring B;
     
     if not (kk === QQ) then error "GrothendieckWittClass is not over QQ";
@@ -73,7 +73,7 @@ anisotropicDimensionQp (GrothendieckWittClass, ZZ) := ZZ => (beta, p) -> (
 anisotropicDimensionQQ = method()
 anisotropicDimensionQQ (GrothendieckWittClass) := ZZ => (beta) -> (
     B := beta.matrix;
-    rankForm := numRows(B);
+    rankForm := rank(beta);
     kk := ring B;
     
     if not (kk === QQ) then error "GrothendieckWittClass is not over QQ";
