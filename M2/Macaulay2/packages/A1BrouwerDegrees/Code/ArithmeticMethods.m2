@@ -150,7 +150,7 @@ localAlgebraBasis (List, Ideal) := (List) => (L,p) -> (
     
     -- Ambient ring
     R := ring L#0;
-    I := ideal L;
+    I := ideal(L);
     
     -- Check whether or not the ideal is zero-dimensional
     if dim I > 0 then error "morphism does not have isolated zeroes";
