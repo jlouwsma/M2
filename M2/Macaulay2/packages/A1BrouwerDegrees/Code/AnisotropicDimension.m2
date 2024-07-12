@@ -9,7 +9,7 @@
 isHyperbolicQp = method()
 isHyperbolicQp (GrothendieckWittClass, ZZ) := Boolean => (beta, p) -> (
     B := beta.matrix;
-    rankForm := rank(beta);
+    rankForm := rank beta;
     kk := ring B;
     
     if not (kk === QQ) then error "GrothendieckWittClass is not over QQ";
@@ -42,7 +42,7 @@ isHyperbolicQp (GrothendieckWittClass, ZZ) := Boolean => (beta, p) -> (
 anisotropicDimensionQp = method()
 anisotropicDimensionQp (GrothendieckWittClass, ZZ) := ZZ => (beta, p) -> (
     B := beta.matrix;
-    rankForm := rank(beta);
+    rankForm := rank beta;
     kk := ring B;
     
     if not (kk === QQ) then error "GrothendieckWittClass is not over QQ";
@@ -73,7 +73,7 @@ anisotropicDimensionQp (GrothendieckWittClass, ZZ) := ZZ => (beta, p) -> (
 anisotropicDimensionQQ = method()
 anisotropicDimensionQQ (GrothendieckWittClass) := ZZ => (beta) -> (
     B := beta.matrix;
-    rankForm := rank(beta);
+    rankForm := rank beta;
     kk := ring B;
     
     if not (kk === QQ) then error "GrothendieckWittClass is not over QQ";
@@ -112,7 +112,7 @@ anisotropicDimension (Matrix) := (ZZ) => (A) -> (
         )
     -- Over RR, the anisotropic dimension is the absolute value of the signature
     else if instance(k,RealField) then (
-        diagonalA := congruenceDiagonalize(A);
+        diagonalA := congruenceDiagonalize A;
         return (abs(numPosDiagEntries(diagonalA) - numNegDiagEntries(diagonalA)));
         )
     -- Over QQ, call anisotropicDimensionQQ
@@ -123,7 +123,7 @@ anisotropicDimension (Matrix) := (ZZ) => (A) -> (
     -- if the number of nonzero diagonal entries is even, then the anisotropic dimension is either 0 or 2
     -- depending on whether the nondegenerate part of the form is totally hyperbolic
     else if (instance(k, GaloisField) and k.char != 2) then (
-        diagA := congruenceDiagonalize(A);
+        diagA := congruenceDiagonalize A;
         if (rank(diagA)%2 == 1) then (
             return 1;
             )
