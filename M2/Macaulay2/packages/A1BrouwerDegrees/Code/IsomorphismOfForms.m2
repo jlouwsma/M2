@@ -3,17 +3,17 @@
 
 isIsomorphicFormQ = method()
 isIsomorphicFormQ (GrothendieckWittClass, GrothendieckWittClass) := Boolean => (alpha, beta) -> (
-    if (not baseField(alpha) === QQ) then error "first input must have base field QQ";
-    if (not baseField(beta) === QQ) then error "second input must have base field QQ";
+    if not (baseField(alpha) === QQ) then error "first input must have base field QQ";
+    if not (baseField(beta) === QQ) then error "second input must have base field QQ";
     
     -- If the ranks differ, then the forms are not isomorphic
-    if (rank(alpha) != rank(beta)) then return false;
+    if rank(alpha) != rank(beta) then return false;
     
     -- If the signatures (Hasse-Witt invariants at RR) differ, then the forms are not isomorphic
-    if (signature(alpha) != signature(beta)) then return false;
+    if signature(alpha) != signature(beta) then return false;
     
     -- If the discriminants differ, then the forms are not isomorphic
-    if (integralDiscriminant(alpha) != integralDiscriminant(beta)) then return false;
+    if integralDiscriminant(alpha) != integralDiscriminant(beta) then return false;
     
     -- Check the Hasse-Witt invariants
     PrimesToCheck := unique(relevantPrimes(alpha) | relevantPrimes(beta));
@@ -73,8 +73,8 @@ isIsometricForm (Matrix,Matrix) := (Boolean) => (A,B) -> (
     
     -- Over RR, diagonal forms of the same dimension are equivalent if and only if they have the same number of positive and negative entries
     else if (instance(k1,RealField) or instance(k2,RealField)) then (
-        diagA := congruenceDiagonalize(A);
-        diagB := congruenceDiagonalize(B);
+        diagA := congruenceDiagonalize A;
+        diagB := congruenceDiagonalize B;
         return ((numRows(A) == numRows(B)) and (numPosDiagEntries(diagA) == numPosDiagEntries(diagB)) and (numNegDiagEntries(diagA) == numNegDiagEntries(diagB)));
         )
     
