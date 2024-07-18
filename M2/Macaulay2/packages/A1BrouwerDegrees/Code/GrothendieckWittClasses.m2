@@ -26,7 +26,11 @@ matrix GrothendieckWittClass := Matrix => beta -> beta.matrix
 -- Input: A matrix
 -- Output: Boolean that gives whether the matrix defines a nondegenerate symmetric bilinear form over a field of characteristic not 2
 
-texMath (GrothendieckWittClass) := string => alpha -> (
+net (GrothendieckWittClass) := Net => alpha -> (
+    net(alpha.matrix)
+    )
+
+texMath (GrothendieckWittClass) := String => alpha -> (
     texMath(alpha.matrix)
     )
 
